@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\v1\ArticleController;
 use App\Http\Controllers\Api\v1\AuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -20,3 +21,4 @@ use Illuminate\Support\Facades\Route;
 //});
 
 Route::post('/create-user',[AuthController::class,'createUser'])->name('createuser');
+Route::get('/get-articles',[ArticleController::class,'allArticles']);
