@@ -9,19 +9,15 @@
     <title>Document</title>
 </head>
 <body>
-<header>
-    <div class="container header_container">
-        <div class="header_logo">
-            <img src="{{Storage::url('logo/logo.png')}}" alt="LOGO">
-        </div>
 
-        <div class="header_user_nickname">
-            <div class="header_search">
-                <input type="text">
-            </div>
-            <h2>Steellsey</h2>
-        </div>
+<main>
+    <div id="app">
+
+            <v-main></v-main>
+
     </div>
-</header>
+
+</main>
+<script src="{{asset('js/app.js')}}"></script>
 </body>
 </html>

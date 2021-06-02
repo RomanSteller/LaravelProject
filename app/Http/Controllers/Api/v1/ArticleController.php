@@ -17,6 +17,8 @@ class ArticleController extends Controller
             ])->setStatusCode(201);
         }
     }
+
+
     public function bestArticles(){
         $articles = Articles::orderBy('save_count','desc')->get();// Надо добавить сортировку по времени(за сегодня, неделю, месяц)
         if($articles){
@@ -25,6 +27,8 @@ class ArticleController extends Controller
             ])->setStatusCode(201);
         }
     }
+
+
     public function oneArticle($id){
         $articles = Articles::where('id', $id)->first();
 
@@ -38,6 +42,8 @@ class ArticleController extends Controller
             ])->setStatusCode(404);
         }
     }
+
+
     public function topArticles(){
         $articles = Articles::select('id','name','save_count')->orderBy('save_count','desc')->get();// Надо добавить сортировку по времени(только за этот месяц)
         if($articles){
@@ -46,5 +52,6 @@ class ArticleController extends Controller
             ])->setStatusCode(201);
         }
     }
+
 
 }
