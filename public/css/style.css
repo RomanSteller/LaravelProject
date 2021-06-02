@@ -1,0 +1,284 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    font-family: 'Helvetica', sans-serif;
+}
+
+header{
+    background-color: #303b44;
+}
+
+.container{
+    max-width:1300px;
+    margin: 0 auto;
+    padding: 0 10px;
+}
+
+a{
+    text-decoration: none;
+}
+
+.header_container{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+.header_logo{
+    padding: 5px;
+}
+
+
+.header_user_nickname{
+    color: white;
+    font-size: 25px;
+}
+
+.header_user_nickname{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header_search{
+    margin-right: 20px;
+}
+
+.header_search input{
+    outline: none;
+    border: none;
+    padding: 5px 20px;
+}
+
+.main_container{
+    display: flex;
+    justify-content: space-between;
+    margin-top:30px;
+}
+
+.content nav>ul>li>a{
+    text-decoration: none;
+    color: black;
+    font-size: 25pt;
+}
+
+.content nav>ul>li{
+    padding: 0 10px;
+
+}
+
+.content{
+    max-width: 800px;
+    width: 100%;
+    padding: 0 5px;
+}
+
+.content nav>ul>li:not(:last-child){
+    border-right: 1px solid black;
+}
+
+.content nav>ul>li:first-child{
+    padding-left: 0;
+}
+
+li{
+    list-style: none;
+}
+
+.content nav>ul{
+    display: flex;
+}
+
+.switch_sort{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 40px;
+}
+
+.switch_best_or_all,
+.switch_of_time{
+    display: flex;
+    justify-content: space-between;
+}
+
+.switch_best_or_all ul ,
+.switch_of_time  ul{
+    display: flex;
+    margin-right: 10px;
+    font-size: 26px;
+
+}
+
+.switch_best_or_all ul>li>a ,
+.switch_of_time  ul>li>a{
+    color: black;
+    padding: 5px;
+
+}
+
+.switch_best_or_all ul>li>a ,
+.switch_of_time  ul>li>a{
+    text-align: center;
+}
+
+.switch_best_or_all ul,
+.switch_of_time ul{
+
+}
+
+
+.switch_best_or_all ul>li> ,
+.switch_of_time  ul>li>{
+    margin: -2px;
+    padding: 15px 0;
+}
+
+.switch_best_or_all ul>li>a:active ,
+.switch_of_time  ul>li>a:active{
+    border: 1px solid cornflowerblue;
+    margin: -1px;
+}
+
+.switch_best_or_all ul>li:last-child,
+.switch_of_time  ul>li:last-child{
+    margin-right: 0;
+}
+
+.switch_sort{
+    position: relative;
+    border-bottom: 1px solid #77a8d0;
+    padding-bottom: 20px;
+}
+
+.charts{
+    position: relative;
+    max-width: 400px;
+    width: 100%;
+    padding: 0 5px;
+}
+
+.top_text{
+    border-bottom: 2px solid  #77a8d0;
+    padding-bottom: 10px;
+}
+
+.top_text h2{
+    font-weight: normal;
+    color: #222222;
+}
+
+
+.publicist_logo{
+    width: 30px;
+    height: 30px;
+    background-color: #77a8d0;
+    border-radius: 2px;
+}
+
+.top_publicists{
+    margin-top:30px;
+
+}
+
+.publicist{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.publicist_data{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+.publicist_name{
+    margin-left: 7px;
+}
+.publicist_name a{
+    color: #222222;
+}
+
+span{
+    font-weight: lighter;
+}
+
+.top_articles{
+    margin-top: 70px;
+}
+
+.articles{
+    margin: 15px 15px 0;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #77a8d0;
+}
+
+.article_name{
+    margin-top: 15px;
+}
+.article_name a{
+    color: #222222;
+}
+.article_statistic{
+    margin-top: 5px;
+}
+
+.post_user_logo{
+    width: 30px;
+    height: 30px;
+    background-color: cornflowerblue;
+    border-radius: 15px;
+}
+
+.post_user{
+    margin-top: 30px;
+    display: flex;
+    align-items: flex-end;
+    flex-direction: row;
+}
+.post_user_name{
+    color: #222222;
+}
+
+.post_user div:not(post_date_time){
+    margin-right: 10px;
+}
+
+.post_name{
+    margin: 20px 0 5px;
+}
+.post_name a{
+    color: #222222;
+}
+.post_tags a{
+    margin-right: 5px;
+    color: #222222;
+}
+.post_content{
+    margin-top: 15px;
+    font-size: 18px;
+    color: #222222;
+}
+.post_content *{
+    width: 100%;
+}
+.post_statistic{
+    margin-top: 5px;
+    display: flex;
+    align-items: center;
+}
+.post_statistic div{
+    margin-right: 10px;
+}
+.post_statistic span{
+    margin-left: 3px;
+}
+
+.articles{
+    margin-top: 30px;
+}
