@@ -17,5 +17,34 @@ class ArticleController extends Controller
             ])->setStatusCode(201);
         }
     }
+    public function bestArticles(){
+        $articles = Articles::orderBy('save_count','desc')->get();// Надо добавить сортировку по времени(за сегодня, неделю, месяц)
+        if($articles){
+            return response()->json([
+                $articles
+            ])->setStatusCode(201);
+        }
+    }
+    public function oneArticle($id){
+        $articles = Articles::where('id', $id)->first();
+
+        if($articles){
+            return response()->json([
+                $articles
+            ])->setStatusCode(201);
+        }else if(empty($articles)){
+            return response()->json([
+                'message'=>'Данная статья отсутствует'
+            ])->setStatusCode(404);
+        }
+    }
+    public function topArticles(){
+        $articles = Articles::select('id','name','save_count')->orderBy('save_count','desc')->get();// Надо добавить сортировку по времени(только за этот месяц)
+        if($articles){
+            return response()->json([
+                $articles
+            ])->setStatusCode(201);
+        }
+    }
 
 }

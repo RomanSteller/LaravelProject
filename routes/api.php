@@ -22,3 +22,6 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('/create-user',[AuthController::class,'createUser'])->name('createuser');
 Route::get('/get-articles',[ArticleController::class,'allArticles']);
+Route::get('/get-articles-best',[ArticleController::class,'bestArticles']);
+Route::get('/get-articles/{id}',[ArticleController::class,'oneArticle']);
+Route::get('/get-articles-top',[ArticleController::class,'topArticles']);
