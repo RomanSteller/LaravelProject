@@ -16,6 +16,7 @@ header{
     max-width:1300px;
     margin: 0 auto;
     padding: 0 10px;
+
 }
 
 a{
@@ -47,6 +48,8 @@ a{
 
 .header_search{
     margin-right: 20px;
+    display: flex;
+    align-items: center;
 }
 
 .header_search input{
@@ -59,12 +62,13 @@ a{
     display: flex;
     justify-content: space-between;
     margin-top:30px;
+
 }
 
 .content nav>ul>li>a{
     text-decoration: none;
     color: black;
-    font-size: 25pt;
+    font-size: 20px;
 }
 
 .content nav>ul>li{
@@ -76,6 +80,7 @@ a{
     max-width: 800px;
     width: 100%;
     padding: 0 5px;
+    font-size: 15px;
 }
 
 .content nav>ul>li:not(:last-child){
@@ -118,9 +123,17 @@ li{
 .switch_of_time  ul>li>a{
     color: black;
     padding: 5px;
+    font-size: 25px;
 
 }
 
+
+.switch_best_or_all ul>li>a:not(:last-child),
+.switch_of_time  ul>li>a:not(:last-child){
+
+    margin-right: 20px;
+
+}
 .switch_best_or_all ul>li>a ,
 .switch_of_time  ul>li>a{
     text-align: center;
@@ -204,6 +217,11 @@ li{
     color: #222222;
 }
 
+img{
+    padding-top: 5px;
+    width: 100px;
+}
+
 span{
     font-weight: lighter;
 }
@@ -225,7 +243,12 @@ span{
     color: #222222;
 }
 .article_statistic{
-    margin-top: 5px;
+    margin-top: 12px;
+    display: flex;
+}
+
+.statistic_save{
+    padding-left: 20px;
 }
 
 .post_user_logo{
