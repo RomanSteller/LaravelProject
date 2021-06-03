@@ -1,7 +1,7 @@
 import VueRouter from "vue-router";
 import Vue from "vue";
 import mainWrapper from './components/v-mainwrapper'
-import articlesWrapper from './components/v-news'
+import articlesWrapper from './components/v-articles'
 
 
 Vue.use(VueRouter);
