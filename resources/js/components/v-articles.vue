@@ -9,7 +9,7 @@
 
 <script>
 export default {
-  name: "v-news",
+  name: "v-articles",
   data(){
     return{
       articles:[]
