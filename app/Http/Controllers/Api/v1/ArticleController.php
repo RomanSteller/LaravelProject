@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 class ArticleController extends Controller
 {
     public function allArticles(){
-        $articles = Articles::all();
+        $articles = Articles::with(['user'])->get();
 //        $articles = Articles::all()->user()->get();
 //        $user = Articles::find(1)->user()->get();
 
