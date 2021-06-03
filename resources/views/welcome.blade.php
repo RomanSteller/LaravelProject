@@ -1,5 +1,4 @@
-@extends('app.app')
-@section('content')
-
+@extends('app.articles')
+@section('articleContent')
 
 @endsection
