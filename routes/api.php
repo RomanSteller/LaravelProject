@@ -19,9 +19,10 @@ use Illuminate\Support\Facades\Route;
 //Route::middleware('auth:api')->get('/user', function (Request $request) {
 //    return $request->user();
 //});
-
-Route::post('/create-user',[AuthController::class,'createUser'])->name('createuser');
-Route::get('/get-articles',[ArticleController::class,'allArticles']);
-Route::get('/get-articles-best',[ArticleController::class,'bestArticles']);
-Route::get('/get-articles/{id}',[ArticleController::class,'oneArticle']);
-Route::get('/get-topArticles',[ArticleController::class,'topArticles']);
+//
+//Route::post('/create-user',[AuthController::class,'createUser'])->name('createuser');
+//Route::post('/auth-user',[AuthController::class,'authUser']);
+//Route::get('/get-articles',[ArticleController::class,'allArticles']);
+//Route::get('/get-articles-best',[ArticleController::class,'bestArticles']);
+//Route::get('/get-articles/{id}',[ArticleController::class,'oneArticle']);
+//Route::get('/get-topArticles',[ArticleController::class,'topArticles']);

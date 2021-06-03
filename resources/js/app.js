@@ -24,16 +24,15 @@ window.Vue = require('vue').default;
 
 // Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 
-Vue.component('v-header',require('./components/v-headerLayout').default);
-Vue.component('v-main',require('./components/v-mainwrapper').default);
+
+
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
-import router from "./router";
+
 const app = new Vue({
     el: '#app',
-    router
 });

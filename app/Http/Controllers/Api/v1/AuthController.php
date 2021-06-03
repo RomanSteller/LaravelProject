@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\v1;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AuthRequest;
 use App\Models\User;
+use http\Cookie;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -25,4 +26,22 @@ class AuthController extends Controller
             ])->setStatusCode(201);
         }
     }
+
+    public function authUser(Request $request){
+        $login = $request['login'];
+        $user = User::where('login',$login)->first();
+
+        if(!$user || !Hash::check($request['password'],$user['password'])){
+            return response()->json([
+                "message" => "Пользователь не найден"
+            ])->setStatusCode(401);
+        }else{
+            session(['id' => $user['id']]);
+            $id = session('id');
+            return response()->json([
+                $id
+            ]);
+        }
+    }
+
 }
