@@ -22,7 +22,7 @@ export default {
     allArticles(){
       axios.get('/api/get-articles')
       .then(res=>{
-        this.articles = res.data[0]+res.data[1]
+        this.articles = res.data[0];
 
         console.log(this.articles)
       })

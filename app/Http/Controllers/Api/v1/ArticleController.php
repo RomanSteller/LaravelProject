@@ -9,18 +9,15 @@ use Illuminate\Http\Request;
 class ArticleController extends Controller
 {
     public function allArticles(){
-        $articles = Articles::select('id','name','save_count','login')->user->get();
+        $articles = Articles::all();
 //        $articles = Articles::all()->user()->get();
-        $user = Articles::find(1)->user()->get();
+//        $user = Articles::find(1)->user()->get();
 
-        $result = [
-            'user' => $user,
-            'article' => $articles
-        ];
+
 
         if($articles){
             return response()->json([
-                $result
+                $articles
             ])->setStatusCode(201);
         }
     }
