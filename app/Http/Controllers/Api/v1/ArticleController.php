@@ -9,11 +9,18 @@ use Illuminate\Http\Request;
 class ArticleController extends Controller
 {
     public function allArticles(){
-        $articles = Articles::all();
+        $articles = Articles::select('id','name','save_count','login')->user->get();
+//        $articles = Articles::all()->user()->get();
+        $user = Articles::find(1)->user()->get();
+
+        $result = [
+            'user' => $user,
+            'article' => $articles
+        ];
 
         if($articles){
             return response()->json([
-                $articles
+                $result
             ])->setStatusCode(201);
         }
     }
@@ -31,10 +38,11 @@ class ArticleController extends Controller
 
     public function oneArticle($id){
         $articles = Articles::where('id', $id)->first();
-
+        $user = Articles::find(1)->user()->where('id',$id)->first();
         if($articles){
             return response()->json([
-                $articles
+                $articles,
+                $user
             ])->setStatusCode(201);
         }else if(empty($articles)){
             return response()->json([

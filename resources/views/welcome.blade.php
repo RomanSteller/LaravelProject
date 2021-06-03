@@ -9,14 +9,11 @@
     <title>Document</title>
 </head>
 <body>
-
 <main>
     <div id="app">
-
-            <v-main></v-main>
-
+        <v-header></v-header>
+        <router-view></router-view>
     </div>
-
 </main>
 <script src="{{asset('js/app.js')}}"></script>
 </body>
