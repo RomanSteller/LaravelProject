@@ -41,10 +41,7 @@ class AuthController extends Controller
             ]);
 
             if($user){
-                return response()->json([
-                    $user,
-                    "message" => "Пользователь успешно зарегестрирован"
-                ])->setStatusCode(201);
+
             }
         }
     }
@@ -60,9 +57,7 @@ class AuthController extends Controller
         }else{
             session(['id' => $user['id']]);
             $id = session('id');
-            return response()->json([
-                $id
-            ]);
+            return redirect(route(('home')));
         }
     }
 }
