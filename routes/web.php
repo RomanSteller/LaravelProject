@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,9 +20,12 @@ use Illuminate\Support\Facades\Route;
 //});
 
 Route::get('/',[ArticleController::class,'allArticles'])->name('home');
-Route::get('/auth',function (){
-   return view('auth.auth');
-});
+
+Route::get('log',[AuthController::class,'log'])->name('authInput');
+Route::post('/auth/check', [AuthController::class,'authUser'])->name('auth');
+
+Route::get('reg',[AuthController::class,'reg'])->name('regInput');
+Route::post('/reg/check', [AuthController::class,'createUser'])->name('reg');
 
 //Route::get('/{any}',function (){
 //   return view('welcome');

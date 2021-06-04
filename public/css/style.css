@@ -305,3 +305,69 @@ span{
 .articles{
     margin-top: 30px;
 }
+.user_data_input{
+    width:550px;
+    border: 3px solid #888888;
+    border-radius: 5px;
+    box-shadow: 2px 2px 4px 0px rgba(34, 60, 80, 0.2);
+    margin: 50px auto;
+    padding: 30px 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+}
+.user_input_name{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 40px;
+}
+.user_input_name .current_form{
+    color: #222222;
+}
+.user_input_name a{
+    color: #77a8d0;
+    text-decoration: none;
+}
+.user_input_cell{
+    color: #222222;
+    margin-top: 20px;
+    width: 100%;
+}
+.user_input_error{
+    color: red;
+    margin-top: 5px;
+}
+.user_input_cell input{
+    margin-top: 10px;
+    width: 100%;
+    height: 35px;
+    padding: 5px 10px;
+    border: 1px solid #aaaaaa;
+    box-shadow: 0 2px 4px 0 rgb(0 0 0 / 10%);
+    outline: none;
+}
+.user_input_cell button{
+    margin-top: 20px;
+    width: 100%;
+    height: 40px;
+    background-color: #77a8d0;
+    color:  white;
+    border: 0;
+    border-radius: 3px;
+    box-shadow: 0 2px 4px 0 rgb(0 0 0 / 10%);
+}
+.user_input_cell button:hover{
+    transition-duration: 0.2s;
+    transform: translateY(1px);
+    background-color: #FE9E9E;
+}
+.user_input_cell #user_agree_input, .user_input_cell label{
+    width: 15px;
+    height: 15px;
+}
+.user_input_blocked{
+    background-color: #840000;
+}
