@@ -24,6 +24,9 @@ Route::get('/auth',function (){
    return view('auth.auth');
 })->name('auth');
 Route::get('/logout',[AuthController::class,'dropSession'])->name('logout');
+
+Route::get('/article/{id}',[ArticleController::class,'oneArticle'])->name('article');
+//Route::get('/user/{id}',[ArticleController::class,'oneArticle'])->name('user');
 //Route::get('/{any}',function (){
 //   return view('welcome');
 //})->where('any',".*");

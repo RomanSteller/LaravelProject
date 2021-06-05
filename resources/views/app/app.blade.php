@@ -12,7 +12,7 @@
 <header>
     <div class="container header_container">
         <div class="header_logo">
-            <a href=""><img src="{{Storage::url('logo/logo.png')}}" alt=""></a>
+            <a href="{{route('home')}}"><img src="{{Storage::url('logo/logo.png')}}" alt=""></a>
         </div>
         {{session('id')}}
         @if(is_null(session('id')))
