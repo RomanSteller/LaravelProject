@@ -26,6 +26,7 @@ class CreateUserRequest extends FormRequest
         return  [
             'login' => 'required|unique:users|regex:/^[A-z]+$/i',
             'password' => 'required|min:9',
+            'confirmed_password' => 'required|same:password',
             'name' => 'required',
             'email' => 'required|email'
         ];
@@ -39,6 +40,8 @@ class CreateUserRequest extends FormRequest
             'login.regex' => 'Логин может принимать только буквы латинского алфавита',
             'password.required' => 'Пароль обязателен для заполнения',
             'password.min' => 'Пароль должен содержать не менее 9 символов',
+            'confirmed_password.required' => 'Необходимо ввести пароль еще раз',
+            'confirmed_password.same' => 'Пароли должны повторяться',
             'name.required' => 'ФИО обязателен для заполнения',
             'email.required' => 'Электроная почта обязателен для заполнения',
             'email.email' => 'Электроная почта должна быть ввалидна',

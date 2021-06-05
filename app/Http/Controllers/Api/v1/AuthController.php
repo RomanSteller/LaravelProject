@@ -41,7 +41,7 @@ class AuthController extends Controller
             session(['id' => $user['id']]);
             $id = session('id');
             return response()->json([
-                $id
+                'id' => $id
             ]);
         }
     }

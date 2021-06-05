@@ -33,10 +33,10 @@
       </div>
       <div class="form-group">
         <label for="password_repeat">Повтор пароля</label>
-        <input type="password" id="password_repeat">
+        <input type="password" id="password_repeat" name="confirmed_password" v-model="regForm.confirmed_password">
         <span v-if="failSecondPassword">{{ failSecondPasswordMessage }}</span>
       </div>
-      <input type="submit" @click.prevent="createUser">
+      <input type="submit" @click="createUser">
       <a href="" @click.prevent="switchForm">Я зарегестрирован</a>
     </form>
     <form action="" v-if="toogleForm">
@@ -75,7 +75,7 @@ export default {
         login:"",
         name:"",
         password:"",
-        secondPassword:"",
+        confirmed_password:"",
         email:""
       },
       authForm:{
@@ -104,44 +104,49 @@ export default {
           'X-XSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
         }
       }).then(res=>{
-          if(res.data.message){
-            this.successRegisterText = res.data.message
-            this.successRegister = true;
-          }
+        if(res.data.message){
+          this.successRegisterText = res.data.message
+          this.successRegister = true;
+        }
+
       }).catch(err=>{
         // console.log(err.response.data)
         // console.log(err.response.data.errors.message.login)
-
-        if(this.regForm.secondPassword.value === ''){
-          this.failSecondPassword = true;
-          this.failSecondPasswordMessage = "Повтор пароля обязателен для заполнения"
-        }else if(this.regForm.secondPassword.value !== this.regForm.password.value){
-            this.failSecondPassword = true;
-            this.failPassword = true;
-            this.failSecondPasswordMessage = "Пароли не совпдают";
-            this.failPasswordMessage = "Пароли не совпдают";
-        }else if(this.regForm.secondPassword.value === this.regForm.password.value){
-          this.failSecondPassword = false;
-          this.failPassword = false;
-        }
 
         if (err?.response?.data?.errors) {
           if(err.response.data.errors.login){
               this.failLogin = true;
               this.failLoginMessage = err.response.data.errors.login[0]
               console.log(this.failLoginMessage);
+          }else{
+              this.failLogin=false
           }
           if(err.response.data.errors.password){
             this.failPassword = true;
             this.failPasswordMessage = err.response.data.errors.password[0]
+          }else{
+            this.failPassword=false
           }
+
           if(err.response.data.errors.email){
             this.failEmail = true;
             this.failEmailMessage = err.response.data.errors.email[0]
+          }else{
+            this.failEmail = false;
           }
           if(err.response.data.errors.name){
             this.failName = true;
             this.failNameMessage = err.response.data.errors.name[0]
+          }else{
+            this.failName = false
+          }
+
+          if(err?.response?.data?.errors?.confirmed_password){
+            this.failSecondPassword = true;
+            this.failSecondPasswordMessage = err.response.data.errors.confirmed_password[0];
+            console.log(err.response.data.errors.confirmed_password[0])
+          }else{
+            this.failSecondPassword = false;
           }
           this.errorExists = true;
           this.errorText = err.response.data.message
@@ -155,8 +160,9 @@ export default {
         'X-XSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
       }).then(res=>{
           if(res.data){
-            console.log(res.data.message)
+            console.log(res.data.id)
             window.location.href = "/"
+
           }
       }).catch(err=>{
         if (err?.response?.data?.errors) {
@@ -166,6 +172,7 @@ export default {
             console.log(this.failLoginMessage);
           }
           if(err.response.data.errors.password){
+
             this.failPassword = true;
             this.failPasswordMessage = err.response.data.errors.password[0]
           }

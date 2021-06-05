@@ -14,9 +14,11 @@
         <div class="header_logo">
             <a href=""><img src="{{Storage::url('logo/logo.png')}}" alt=""></a>
         </div>
-        @if(!session('id'))
+        {{session('id')}}
+        @if(is_null(session('id')))
         <div class="header_user_nickname">
             <a href="{{route('auth')}}" style="color: white">Авторизоваться</a>
+            @dd(session('id'))
         </div>
         @else
             <div class="header_user_nickname">
