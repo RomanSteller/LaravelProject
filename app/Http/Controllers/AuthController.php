@@ -49,4 +49,9 @@ class AuthController extends Controller
             return redirect(route(('home')));
         }
     }
+
+    public function dropSession(){
+        session()->forget('id');
+        return redirect()->route('home');
+    }
 }

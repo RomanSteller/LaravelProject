@@ -23,7 +23,7 @@ Route::get('/',[ArticleController::class,'allArticles'])->name('home');
 Route::get('/auth',function (){
    return view('auth.auth');
 })->name('auth');
-
+Route::get('/logout',[AuthController::class,'dropSession'])->name('logout');
 //Route::get('/{any}',function (){
 //   return view('welcome');
 //})->where('any',".*");
