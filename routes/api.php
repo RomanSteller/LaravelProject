@@ -20,8 +20,8 @@ use Illuminate\Support\Facades\Route;
 //    return $request->user();
 //});
 //
-//Route::post('/create-user',[AuthController::class,'createUser'])->name('createuser');
-//Route::post('/auth-user',[AuthController::class,'authUser']);
+Route::post('/create-user',[AuthController::class,'createUser']);
+Route::post('/auth-user',[AuthController::class,'authUser']);
 //Route::get('/get-articles',[ArticleController::class,'allArticles']);
 //Route::get('/get-articles-best',[ArticleController::class,'bestArticles']);
 //Route::get('/get-articles/{id}',[ArticleController::class,'oneArticle']);

@@ -24,10 +24,16 @@ class AuthRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => ['required'],
-            'login' => ['required','unique:users','min:6','max:20'],
+            'login' => ['required'],
             'password' => ['required'],
-            'email' => ['required','unique:users']
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'login.required' => 'Логин является обязательным',
+            'password.required' => 'Пароль обязателен для заполнения',
         ];
     }
 }

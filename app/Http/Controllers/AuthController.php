@@ -21,23 +21,12 @@ class AuthController extends Controller
     }
 
     public function createUser(Request $request){
-        $valid = $request->validate([
-            'login_input' => 'required|min:4|max:100',
-            'password_input' => 'required|min:6|max:50',
-            'mail_input' => 'required|email',
-            'user_agree_input' => 'required|accepted'
-        ]);
 
         if ($request['password_repeat_input']=$request['password_input']){
             $user = User::create([
-                'login' => $request['login_input'],
-                'password' => Hash::make($request['password_input']),
-                'passwordRepeat' => $request['password_repeat_input'],
-                'email' => $request['mail_input']
-
-                //'name' => 'AAA',//Надо изменить базу, а то ругается что отправляю null
-                //'role' => 'user',//Надо изменить базу, а то ругается что отправляю null
-                //'photo' => 'AAA'//Надо изменить базу, а то ругается что отправляю null
+                'login' => $request['login'],
+                'password' => Hash::make($request['password']),
+                'email' => $request['email']
             ]);
 
             if($user){
@@ -46,7 +35,7 @@ class AuthController extends Controller
         }
     }
 
-    public function authUser(Request $request){
+    public function authUser(AuthRequest $request){
         $login = $request['login_input'];
         $user = User::where('login',$login)->first();
 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\v1;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AuthRequest;
+use App\Http\Requests\CreateUserRequest;
 use App\Models\User;
 use http\Cookie;
 use Illuminate\Http\Request;
@@ -11,7 +12,8 @@ use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
-    public function createUser(AuthRequest $request){
+    public function createUser(CreateUserRequest $request){
+
         $user = User::create([
             'login' => $request['login'],
             'name' => $request['name'],
@@ -27,7 +29,7 @@ class AuthController extends Controller
         }
     }
 
-    public function authUser(Request $request){
+    public function authUser(AuthRequest $request){
         $login = $request['login'];
         $user = User::where('login',$login)->first();
 
