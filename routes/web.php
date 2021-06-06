@@ -18,6 +18,8 @@ use Illuminate\Support\Facades\Route;
 //Route::get('/', function () {
 //    return view('welcome');
 //});
+Route::get('/add/article',function (){return view('newArticle');});
+Route::post('/add/article/insert',[ArticleController::class,'newArticle'])->name('newArticle');
 
 Route::get('/',[ArticleController::class,'allArticles'])->name('home');
 Route::get('/auth',function (){

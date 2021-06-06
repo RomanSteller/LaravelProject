@@ -1,4 +1,7 @@
 @extends('app.app')
+@section('title')
+    Главная
+@endsection
 @section('content')
     <nav>
         <ul>
