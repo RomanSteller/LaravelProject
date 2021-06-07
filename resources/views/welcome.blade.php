@@ -26,10 +26,7 @@
                 @endforeach
             </div>
             <div class="post_content">
-                @foreach($article->images as $article_image)
-                <img src="{{Storage::url($article_image->photo)}}" alt="">
-                @endforeach
-                {!!$article->content!!}
+                {!! $article->content !!}
             </div>
             <div class="post_statistic">
                 <div> <!-- Глазик -->

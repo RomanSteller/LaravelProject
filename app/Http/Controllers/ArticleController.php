@@ -132,14 +132,14 @@ class ArticleController extends Controller
 
     public function tagArticles($tag){
         $articles = Articles::all();// Надо добавить сортировку по времени(за сегодня, неделю, месяц)месяц
-        $articlesTag = $articles->tags()->where('tag_name', $tag)->orderBy('created_at','desc')->get();
-        dd($articlesTag);
+
+
         foreach ($articles as $article){
             ArticleController::dateOutput($article);
         }
         $articlesChart = ArticleController::articlesChart();
-        if($articlesTag)
-            return view('welcome',compact('articlesTag', 'articlesChart'));
+        if($articles)
+            return view('welcome',compact('articles', 'articlesChart'));
     }
 
     public function oneArticle($id){
