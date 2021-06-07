@@ -14,14 +14,16 @@
                     </div>
                 </a>
                 <div class="post_date_time">
-                    {{$article->created_at}}
+                    {{$article->created_time}}
                 </div>
             </div>
             <div class="post_name"> <!-- Название поста -->
                 <a href="/article/{{$article->id}}"><H2>{{$article->name}}</H2></a>
             </div>
             <div class="post_tags"> <!-- Теги постов -->
-                <a href="">тег 1</a><a href="">тег 2</a><a href="">тег 3</a>
+                @foreach($article->tags as $tag)
+                    <a href="tag/{{$tag->tag_name}}">{{$tag->tag_name}}</a>
+                @endforeach
             </div>
             <div class="post_content">
                 @foreach($article->images as $article_image)

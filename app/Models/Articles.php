@@ -9,6 +9,10 @@ class Articles extends Model
 {
     use HasFactory;
 
+    public function tags(){
+        return $this->belongsToMany(Tags::class, 'articles_tags', 'article_id', 'tag_id');
+    }
+
     public function user(){
         return $this->belongsTo(User::class);
     }
