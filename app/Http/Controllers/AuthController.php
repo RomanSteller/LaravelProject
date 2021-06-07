@@ -51,7 +51,7 @@ class AuthController extends Controller
     }
 
     public function dropSession(){
-        session()->forget('id');
+        session_destroy();
         return redirect()->route('home');
     }
 }

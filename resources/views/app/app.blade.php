@@ -11,18 +11,26 @@
 </head>
 <body>
 <header>
+
     <div class="container header_container">
+
         <div class="header_logo">
             <a href="{{route('home')}}"><img src="{{Storage::url('logo/logo.png')}}" alt=""></a>
         </div>
-        @if(is_null(session('id')))
+        @if(!isset($_SESSION['user']))
         <div class="header_user_nickname">
             <a href="{{route('auth')}}" style="color: white">Авторизоваться</a>
         </div>
         @else
             <div class="header_user_nickname">
-                <a href="">Ты авторизован</a>
-                <a href="{{route('logout')}}">Дропнуть сессию</a>
+                <ul>
+                    <li class="top-li" id="top-li"><a href="#" class="user-a">{{$_SESSION['user']['login']}}</a>
+                        <ul class="child-ul" id="child-ul">
+                            <li class="li"><a href="{{route('getUser',['id'=>$_SESSION['user']['id']])}}" class="li-a">Профиль</a></li>
+                            <li class="li"><a href="{{route('logout')}}" class="li-a">Выйти из аккаунта</a></li>
+                        </ul>
+                    </li>
+                </ul>
             </div>
         @endif
     </div>
@@ -80,4 +88,13 @@
     </div>
 </main>
 </body>
+<script>
+    let el = document.getElementById('top-li');
+    let childUl = document.getElementById('child-ul');
+
+    el.addEventListener('click',()=>{
+        childUl.classList.toggle('active');
+    });
+
+</script>
 </html>

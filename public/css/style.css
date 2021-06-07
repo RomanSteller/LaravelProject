@@ -377,3 +377,49 @@ span{
 .user_input_blocked{
     background-color: #840000;
 }
+
+
+/*Меню*/
+
+.top-li,.li{
+    padding: 0;
+    list-style: none;
+
+}
+.top-li{
+    /*position: relative;*/
+}
+.child-ul{
+    display: none;
+    padding: 0;
+}
+
+.child-ul.active{
+    display: block;
+}
+
+.child-ul{
+    z-index: 9999;
+    margin-top: 10px;
+    background: #303b44;
+    width: 200px;
+    top:30px;
+    position: absolute;
+
+}
+
+.li-a,
+.user-a{
+    text-decoration: none;
+    color:white;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.top-ul{
+
+}
+
+.li{
+    margin-top: 10px;
+}

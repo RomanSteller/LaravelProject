@@ -20,6 +20,7 @@ class CreateArticlesTable extends Migration
             $table->string('status');
             $table->integer('save_count');
             $table->longText('content');
+            $table->string('photo');
             $table->timestamps();
         });
     }

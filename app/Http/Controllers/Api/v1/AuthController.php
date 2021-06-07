@@ -38,8 +38,8 @@ class AuthController extends Controller
                 "message" => "Пользователь не найден"
             ])->setStatusCode(401);
         }else{
-            session(['id' => $user['id']]);
-            $id = session('id');
+            $_SESSION['user'] = $user;
+            $id = $_SESSION['user']['name'];
             return response()->json([
                 'id' => $id
             ]);

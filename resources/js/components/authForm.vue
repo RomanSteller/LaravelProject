@@ -36,7 +36,7 @@
         <input type="password" id="password_repeat" name="confirmed_password" v-model="regForm.confirmed_password">
         <span v-if="failSecondPassword">{{ failSecondPasswordMessage }}</span>
       </div>
-      <input type="submit" @click="createUser">
+      <input type="submit" @click.prevent="createUser">
       <a href="" @click.prevent="switchForm">Я зарегестрирован</a>
     </form>
     <form action="" v-if="toogleForm">

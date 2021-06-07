@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,6 +19,8 @@ use Illuminate\Support\Facades\Route;
 //Route::get('/', function () {
 //    return view('welcome');
 //});
+session_start();
+
 Route::get('/add/article',function (){return view('newArticle');});
 Route::post('/add/article/insert',[ArticleController::class,'newArticle'])->name('newArticle');
 
@@ -28,6 +31,9 @@ Route::get('/auth',function (){
 Route::get('/logout',[AuthController::class,'dropSession'])->name('logout');
 
 Route::get('/article/{id}',[ArticleController::class,'oneArticle'])->name('article');
+
+
+Route::get('/user/{id}',[UserController::class,'index'])->name('getUser');
 //Route::get('/user/{id}',[ArticleController::class,'oneArticle'])->name('user');
 //Route::get('/{any}',function (){
 //   return view('welcome');

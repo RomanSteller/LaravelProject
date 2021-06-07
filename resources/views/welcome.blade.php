@@ -24,7 +24,10 @@
                 <a href="">тег 1</a><a href="">тег 2</a><a href="">тег 3</a>
             </div>
             <div class="post_content">
-                {!! $article->content !!}
+                @foreach($article->images as $article_image)
+                <img src="{{Storage::url($article_image->photo)}}" alt="">
+                @endforeach
+                {!!$article->content!!}
             </div>
             <div class="post_statistic">
                 <div> <!-- Глазик -->
