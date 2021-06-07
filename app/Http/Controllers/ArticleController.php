@@ -4,24 +4,150 @@ namespace App\Http\Controllers;
 
 use App\Models\Articles;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 
 class ArticleController extends Controller
 {
+    public function dateOutputDay($article){
+        switch($article->created_at->format('w')){
+            case 1:
+                $created_time_day = 'Понедельник';
+                break;
+            case 2:
+                $created_time_day = 'Вторник';
+                break;
+            case 3:
+                $created_time_day = 'Среда';
+                break;
+            case 4:
+                $created_time_day = 'Четверг';
+                break;
+            case 5:
+                $created_time_day = 'Пятница';
+                break;
+            case 6:
+                $created_time_day = 'Суббота';
+                break;
+            case 7:
+                $created_time_day = 'Воскресенье';
+                break;
+        }
+        return $created_time_day;
+    }
+    public function dateOutputMounth($article){
+        switch($article['created_at']->format('m')){
+            case 1:
+                $created_time_month = 'Января';
+                break;
+            case 2:
+                $created_time_month = 'Февраля';
+                break;
+            case 3:
+                $created_time_month = 'Марта';
+                break;
+            case 4:
+                $created_time_month = 'Апреля';
+                break;
+            case 5:
+                $created_time_month = 'Мая';
+                break;
+            case 6:
+                $created_time_month = 'Июня';
+                break;
+            case 7:
+                $created_time_month = 'Июля';
+                break;
+            case 8:
+                $created_time_month = 'Августа';
+                break;
+            case 9:
+                $created_time_month = 'Сентября';
+                break;
+            case 10:
+                $created_time_month = 'Октября';
+                break;
+            case 11:
+                $created_time_month = 'Ноября';
+                break;
+            case 12:
+                $created_time_month = 'Декабря';
+                break;
+        }
+        return $created_time_month;
+    }
+
+
+    public function dateOutput($article)
+    {
+            if ($article['created_at']->format('d') > date('d')-1 && $article['created_at']->format('m Y')==date('m Y'))
+                $article['created_time'] = $article['created_at']->diffForHumans();
+            elseif ($article['created_at']->format('d')==date('d')-1 && $article['created_at']->format('m Y')==date('m Y'))
+                $article['created_time'] = 'вчера, в '.$article['created_at']->format('H:i');
+            elseif($article['created_at']->format('d')<date('d')-1 && $article['created_at']->format('m Y')==date('m Y')){
+                $created_time_day = ArticleController::dateOutputDay($article);
+                $article['created_time'] = $created_time_day.', в '.$article['created_at']->format('H:i');
+            }
+            elseif($article['created_at']->format('m')<date('m') && $article['created_at']->format('y')==date('y')){
+                $created_time_month = ArticleController::dateOutputMounth($article);
+                $created_time_day = ArticleController::dateOutputDay($article);
+                $article['created_time'] = $article['created_at']->format('j').' '.$created_time_month.' '.', в '.$article['created_at']->format('H:i');
+            }
+            elseif($article['created_at']->format('y')<date('y')){
+                $created_time_month = ArticleController::dateOutputMounth($article);
+                $created_time_day = ArticleController::dateOutputDay($article);
+                $article['created_time'] = $article['created_at']->format('j').' '.$created_time_month.$article['created_at']->format(' Y').' в '.$article['created_at']->format('H:i');
+            }
+        return $article;
+    }
+
+    public function articlesChart(){
+        $articlesChart = Articles::orderBy('save_count','desc')->whereDate('created_at', '>=', Carbon::now()->startOfMonth())->limit(5)->get();
+        return $articlesChart;
+    }
+
     public function allArticles()
     {
         $articles = Articles::orderBy('created_at','desc')->get();
-        return view('welcome',compact('articles'));
+        foreach ($articles as $article){
+            ArticleController::dateOutput($article);
+        }
+        $articlesChart = ArticleController::articlesChart();
+        //dd($articlesChart);
+        if($articles)
+        return view('welcome',compact('articles', 'articlesChart'));
+    }
 
+    public function bestArticles(){
+        $articles = Articles::orderBy('save_count','desc')->get();// Надо добавить сортировку по времени(за сегодня, неделю, месяц)
+        foreach ($articles as $article){
+            ArticleController::dateOutput($article);
+        }
+        $articlesChart = ArticleController::articlesChart();
+        if($articles)
+            return view('welcome',compact('articles', 'articlesChart'));
+    }
+
+    public function tagArticles($tag){
+        $articles = Articles::all();// Надо добавить сортировку по времени(за сегодня, неделю, месяц)месяц
+        $articlesTag = $articles->tags()->where('tag_name', $tag)->orderBy('created_at','desc')->get();
+        dd($articlesTag);
+        foreach ($articles as $article){
+            ArticleController::dateOutput($article);
+        }
+        $articlesChart = ArticleController::articlesChart();
+        if($articlesTag)
+            return view('welcome',compact('articlesTag', 'articlesChart'));
     }
 
     public function oneArticle($id){
         $article = Articles::where('id', $id)->first();
-        //$user = Articles::find(1)->user()->where('id',$id)->first();
+        ArticleController::dateOutput($article);
+        $articlesChart = ArticleController::articlesChart();
         if($article){
-            return view('article',compact('article'));
+            return view('article',compact('article', 'articlesChart'));
         }else if(empty($article)){
             return response()->json([
                 'message'=>'Данная статья отсутствует'
@@ -50,7 +176,7 @@ class ArticleController extends Controller
             }
         }
         $articles = Articles::create([
-            'user_id' => '1',
+            'user_id' => '1', //Добавить из сессии
             'name' => $request['caption'],
             'content' => $a
         ]);

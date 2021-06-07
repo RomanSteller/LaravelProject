@@ -22,6 +22,10 @@ Route::get('/add/article',function (){return view('newArticle');});
 Route::post('/add/article/insert',[ArticleController::class,'newArticle'])->name('newArticle');
 
 Route::get('/',[ArticleController::class,'allArticles'])->name('home');
+Route::get('/best',[ArticleController::class,'bestArticles'])->name('best');
+
+Route::get('/tag/{tag}',[ArticleController::class,'tagArticles'])->name('tag');
+
 Route::get('/auth',function (){
    return view('auth.auth');
 })->name('auth');

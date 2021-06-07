@@ -4,7 +4,7 @@
         <div class="post_user">
             <a href="">
                 <div class="post_user_logo">
-
+                    <img src="{{$article->user->photo}}">
                 </div>
             </a>
             <a href="/users/{{$article->user->id}}">
@@ -13,7 +13,7 @@
                 </div>
             </a>
             <div class="post_date_time">
-                Сегодня,12:37
+                {{$article->created_time}}
             </div>
         </div>
         <div class="post_name"> <!-- Название поста -->
