@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Articles;
+use App\Models\Comments;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -144,10 +145,19 @@ class ArticleController extends Controller
 
     public function oneArticle($id){
         $article = Articles::where('id', $id)->first();
+        $this->updateViews($id);
         ArticleController::dateOutput($article);
+        $comments = Comments::where('article_id',$id)->orderBy('created_at','desc')->get();
+        foreach ($comments as $comment){
+            $this->dateOutput($comment);
+        }
+
         $articlesChart = ArticleController::articlesChart();
+//        $comments = Comments::where('article_id',$id)->get();
+//        ArticleController::dateOutput($comments);
+
         if($article){
-            return view('article',compact('article', 'articlesChart'));
+            return view('article',compact('article', 'articlesChart','comments'));
         }else if(empty($article)){
             return response()->json([
                 'message'=>'Данная статья отсутствует'
@@ -188,5 +198,25 @@ class ArticleController extends Controller
         //if($article){
             //return view('article',compact('article'));
        // }
+    }
+
+    public function sendComment(Request $request,$id){
+
+
+
+         Comments::create([
+            'user_id' => $_SESSION['user']['id'],
+            'article_id' => $id,
+            'comments' => $request['comments'],
+        ]);
+
+        return redirect(route('article',['id'=>$id]));
+
+    }
+
+    public function updateViews($id){
+        $article = Articles::where('id',$id)->first();
+        $article['views_count'] = $article['views_count']+1;
+        $article->save();
     }
 }

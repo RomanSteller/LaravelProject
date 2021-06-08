@@ -17,11 +17,18 @@ class Articles extends Model
         return $this->belongsTo(User::class);
     }
 
+
+    public function comments(){
+        return $this->hasMany(Comments::class,'article_id');
+    }
+
+
     protected $fillable = [
         'user_id',
         'name',
         'status',
         'save_count',
-        'content'
+        'content',
+        'views_count'
     ];
 }

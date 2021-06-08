@@ -13,6 +13,10 @@ class Tags extends Model
         return $this->belongsToMany(Articles::class, 'articles_tags', 'tag_id', 'article_id');
     }
 
+    public function comments(){
+        return $this->hasMany(Comments::class);
+    }
+
     protected $fillable = [
 
     ];
