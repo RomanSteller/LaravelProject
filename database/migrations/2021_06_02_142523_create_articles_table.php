@@ -17,8 +17,8 @@ class CreateArticlesTable extends Migration
             $table->id();
             $table->integer('user_id');
             $table->string('name');
-            $table->string('status');
-            $table->integer('save_count');
+            $table->string('status')->default('modering');
+            $table->integer('save_count')->default('0');
             $table->longText('content');
             $table->string('photo');
             $table->timestamps();

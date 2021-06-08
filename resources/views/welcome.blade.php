@@ -4,10 +4,13 @@
         <div class="post">
             <div class="post_user">
                 <a href="{{route('article',['id'=>$article->id])}}">
+                    <div class="post_user_logo">
+                        <img src="{{Storage::url($article->user->photo)}}" alt="">
+                    </div>
                 </a>
                 <a href="">
                     <div class="post_user_name">
-                        {{$article->user->name}}
+                        <a href="{{route('getUser',['id'=>$article->user->id])}}">{{$article->user->name}}</a>
                     </div>
                 </a>
                 <div class="post_date_time">
