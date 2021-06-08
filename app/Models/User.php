@@ -19,6 +19,12 @@ class User extends Authenticatable
         return $this->hasMany(Comments::class);
     }
 
+    public function isAuth(){
+        if(isset($_SESSION['user'])){
+            return true;
+        }
+    }
+
     /**
      * The attributes that are mass assignable.
      *
