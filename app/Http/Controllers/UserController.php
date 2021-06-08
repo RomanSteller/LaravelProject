@@ -22,4 +22,20 @@ class UserController extends Controller
             return view('profile.userInfo',compact('articles','user','articlesChart'));
         }
     }
+
+    public function userSettingView(){
+        $user = User::where('id',$_SESSION['user']['id'])->first();
+        $articlesChart = (new ArticleController())->articlesChart();
+        return view('profile.updateUser',compact('user','articlesChart'));
+    }
+
+    public function updateUser(Request $request){
+        if($request['name']){
+            $user = User::where('id',$_SESSION['user']['id'])->first();
+            $user['name'] = $request['name'];
+            $user->save();
+            return redirect()->route('userSettings');
+
+        }
+    }
 }

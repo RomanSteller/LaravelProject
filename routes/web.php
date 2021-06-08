@@ -33,11 +33,15 @@ Route::get('/tag/{tag}',[ArticleController::class,'tagArticles'])->name('tag');
 Route::get('/auth',function (){
    return view('auth.auth');
 })->name('auth');
+Route::post('/user/updateProfile',[UserController::class,'updateUser'])->name('updateUser');
+Route::get('/user/settings',[UserController::class,'userSettingView'])->name('userSettings');
+Route::get('/user/{id}',[UserController::class,'index'])->name('getUser');
+Route::get('/user/{id}/{statistic_name}',[UserController::class,'getUserArticles'])->name('getUserArticles');
+
 
 
 Route::group(['middleware' => 'isAuth'],function(){
-    Route::get('/user/{id}',[UserController::class,'index'])->name('getUser');
-    Route::get('/user/{id}/{statistic_name}',[UserController::class,'getUserArticles'])->name('getUserArticles');
+
 });
 
 Route::get('/logout',[AuthController::class,'dropSession'])->name('logout');

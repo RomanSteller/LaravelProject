@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="{{asset('css/style.css')}}">
     <link rel="shortcut icon" href="{{Storage::url('logo/favicon.png')}}">
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <title>@yield('title')</title>
 </head>
 <body>
@@ -27,7 +28,7 @@
                 <ul>
                     <li class="top-li" id="top-li"><a href="#" class="user-a">{{$_SESSION['user']['login']}}</a>
                         <ul class="child-ul" id="child-ul">
-                            <li class="li"><a href="{{route('getUser',['id'=>$_SESSION['user']['id']])}}" class="li-a">Профиль</a></li>
+                            <li class="li"><a href="{{route('getUserArticles',['id'=>$_SESSION['user']['id'],'statistic_name'=>'articles'])}}" class="li-a">Профиль</a></li>
                             <li class="li"><a href="{{route('logout')}}" class="li-a">Выйти из аккаунта</a></li>
                         </ul>
                     </li>

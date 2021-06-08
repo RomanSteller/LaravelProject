@@ -156,6 +156,7 @@ class ArticleController extends Controller
 //        $comments = Comments::where('article_id',$id)->get();
 //        ArticleController::dateOutput($comments);
 
+
         if($article){
             return view('article',compact('article', 'articlesChart','comments'));
         }else if(empty($article)){
