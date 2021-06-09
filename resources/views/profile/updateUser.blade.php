@@ -10,7 +10,7 @@
         <div class="form_settings">
             <h3>Общее</h3>
             <hr>
-            <form action="{{route('updateUser')}}" method="post">
+            <form action="{{ route('updateUser') }}" method="post">
                 @csrf
                 <div class="form_group">
                     <label for="name">Имя</label>
@@ -18,7 +18,8 @@
                 </div>
                 <input type="submit" id="name_input">
             </form>
-            <form action="{{route('updateUser')}}" method="post">
+
+            <form action="{{ route('updateUser') }}" method="post">
                 @csrf
                 <div class="form_group">
                     <label for="description">Описание</label>
@@ -31,18 +32,19 @@
         <div class="form_settings secure">
             <h3 class="h3-sec">Безопасность</h3>
             <hr>
-            <form action="{{route('updateUser')}}" method="post">
+            <form action="{{ route('updateUser') }}" method="post">
                 @csrf
                 <h4>Смена электронной почты</h4>
                 <div class="form_group">
                     <label for="email">Электронная почта</label>
-                    <input class="input-settings" name="email" type="text" id="email" value="{{$user->email}}">
+                    <input class="input-settings" name="email" type="text" id="email" value="{{ $user->email }}">
                 </div>
                 <input type="submit" id="email_input">
             </form>
-            <form action="{{route('updateUser')}}" method="post">
+
+            <form action="{{ route('updateUser') }}" method="post">
                 @csrf
-                <h4>Смена пароля</h4>
+
                 @if ($errors->any())
                     <div class="alert alert-danger">
                         <ul>
@@ -52,20 +54,22 @@
                         </ul>
                     </div>
                 @endif
+
+                <h4>Смена пароля</h4>
                 <div class="form_group">
                     <label for="password">Пароль</label>
                     <input class="input-settings" name="password" id="password" type="password">
                 </div>
                 <div class="form_group">
-                    <label for="confirm-password">Повтор пароля</label>
-                    <input class="input-settings" name="password-confirm" id="confirm-password" type="password">
+                    <label for="password_confirm">Повтор пароля</label>
+                    <input class="input-settings" name="password_confirm" id="password_confirm" type="password">
                 </div>
                 <input type="submit" id="password_input">
             </form>
         </div>
     </div>
 
-    
+
 @endsection
 <style>
     .settings_user_data{
@@ -139,7 +143,7 @@
             $('#password_input').show();
         })
 
-        $('#confirm-password').on('input',()=>{
+        $('#password_confirm').on('input',()=>{
             $('#password_input').show();
         })
     })

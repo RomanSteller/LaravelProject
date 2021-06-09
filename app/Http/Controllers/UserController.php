@@ -31,46 +31,54 @@ class UserController extends Controller
     }
 
     public function updateUser(Request $request){
-        if($request['name']){
+
+        if(isset($request['name'])){
             $user = User::where('id',$_SESSION['user']['id'])->first();
-            $user['name'] = $request['name'];
+            $user->name = $request['name'];
             $user->save();
-            return redirect()->route('userSettings');
+
+            return redirect(route('userSettings'));
         }
 
-        if($request['description']){
-            $user = User::where('id',$_SESSION['user']['id'])->first();
-            $user['description'] = $request['description'];
-            $user->save();
-        }
+        if(isset($request['description'])){
 
-        if($request['email']){
-            $user = User::where('id',$_SESSION['user']['id'])->first();
-            $user['email'] = $request['email'];
-            $user->save();
-            return redirect()->route('userSettings');
-        }
-
-        if($request['password'] && $request['password-confirm']){
-           $errors =  $request->validate([
-                'password' => 'required|min:9',
-                'password-confirm' => 'required|same:password',
+            $description = $request->validate([
+                'description' => 'required|string'
             ]);
 
-            if ($errors ->fails()) {
-                return redirect(route('userSettings'))
-                    ->withErrors($errors)
-                    ->withInput();
-            }
-
             $user = User::where('id',$_SESSION['user']['id'])->first();
-            $user['password'] = Hash::make($request['password']);
+            $user->description = $description['description'];
             $user->save();
-            return redirect()->route('userSettings');
+
+            return redirect(route('userSettings'));
         }
 
+        if(isset($request['email'])) {
 
+            $mail = $request->validate([
+                'email' => 'required|email|unique:user'
+            ]);
 
+            $user = User::where('id',$_SESSION['user']['id'])->first();
+            $user->email = $mail['email'];
+            $user->save();
 
+            return redirect(route('userSettings'));
+        }
+
+        if(isset($request['password']) && !empty($request['password'])
+            && isset($request['password_confirm']) && !empty($request['password_confirm']) ){
+
+            $pwd = $request->validate([
+                'password' => 'required|min:9',
+                'password_confirm' => 'required|same:password',
+            ]);
+
+            $user = User::where('id',$_SESSION['user']['id'])->first();
+            $user->password = Hash::make($pwd['password']);
+            $user->save();
+
+            return redirect(route('userSettings'));
+        }
     }
 }
