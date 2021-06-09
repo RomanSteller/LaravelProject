@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Articles;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -35,7 +36,41 @@ class UserController extends Controller
             $user['name'] = $request['name'];
             $user->save();
             return redirect()->route('userSettings');
-
         }
+
+        if($request['description']){
+            $user = User::where('id',$_SESSION['user']['id'])->first();
+            $user['description'] = $request['description'];
+            $user->save();
+        }
+
+        if($request['email']){
+            $user = User::where('id',$_SESSION['user']['id'])->first();
+            $user['email'] = $request['email'];
+            $user->save();
+            return redirect()->route('userSettings');
+        }
+
+        if($request['password'] && $request['password-confirm']){
+           $errors =  $request->validate([
+                'password' => 'required|min:9',
+                'password-confirm' => 'required|same:password',
+            ]);
+
+            if ($errors ->fails()) {
+                return redirect(route('userSettings'))
+                    ->withErrors($errors)
+                    ->withInput();
+            }
+
+            $user = User::where('id',$_SESSION['user']['id'])->first();
+            $user['password'] = Hash::make($request['password']);
+            $user->save();
+            return redirect()->route('userSettings');
+        }
+
+
+
+
     }
 }

@@ -18,37 +18,49 @@
                 </div>
                 <input type="submit" id="name_input">
             </form>
-            <form action="">
+            <form action="{{route('updateUser')}}" method="post">
+                @csrf
                 <div class="form_group">
                     <label for="description">Описание</label>
-                    <input class="input-settings" type="text" id="description">
+                    <input class="input-settings" type="text" value="{{$user->description}}" id="description" name="description">
                 </div>
-                <input type="submit">
+                <input type="submit" id="description_input">
             </form>
         </div>
 
         <div class="form_settings secure">
             <h3 class="h3-sec">Безопасность</h3>
             <hr>
-            <form action="">
+            <form action="{{route('updateUser')}}" method="post">
+                @csrf
                 <h4>Смена электронной почты</h4>
                 <div class="form_group">
                     <label for="email">Электронная почта</label>
-                    <input class="input-settings" type="text" id="email" value="{{$user->email}}">
+                    <input class="input-settings" name="email" type="text" id="email" value="{{$user->email}}">
                 </div>
-                <input type="submit">
+                <input type="submit" id="email_input">
             </form>
-            <form action="">
+            <form action="{{route('updateUser')}}" method="post">
+                @csrf
                 <h4>Смена пароля</h4>
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
                 <div class="form_group">
-                    <label for="description">Пароль</label>
-                    <input class="input-settings" type="password">
+                    <label for="password">Пароль</label>
+                    <input class="input-settings" name="password" id="password" type="password">
                 </div>
                 <div class="form_group">
-                    <label for="description">Повтор пароля</label>
-                    <input class="input-settings" type="password" >
+                    <label for="confirm-password">Повтор пароля</label>
+                    <input class="input-settings" name="password-confirm" id="confirm-password" type="password">
                 </div>
-                <input type="submit">
+                <input type="submit" id="password_input">
             </form>
         </div>
     </div>
@@ -114,6 +126,22 @@
         $('#name').on('input',()=>{
             $('#name_input').show();
         });
+
+        $('#description').on('input',()=>{
+            $('#description_input').show();
+        })
+
+        $('#email').on('input',()=>{
+            $('#email_input').show();
+        })
+
+        $('#password').on('input',()=>{
+            $('#password_input').show();
+        })
+
+        $('#confirm-password').on('input',()=>{
+            $('#password_input').show();
+        })
     })
 
 
