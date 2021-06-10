@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Articles;
 use App\Models\Comments;
+use App\Models\Favorites;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -218,5 +219,21 @@ class ArticleController extends Controller
         $article = Articles::where('id',$id)->first();
         $article['views_count'] = $article['views_count']+1;
         $article->save();
+    }
+
+    public function addFavorite(Request $request){
+        $user_id = $_SESSION['user']['id'];
+        $article_id = $request['article_id'];
+
+        if (Favorites::where([['user_id', $user_id],['article_id',$article_id]])->exists()){
+            Favorites::where([['user_id', $user_id],['article_id',$article_id]])->delete();
+            Articles::where('id',$article_id)->decrement('save_count');
+        }else{
+            $user = Favorites::create([
+                'article_id' => $article_id,
+                'user_id' => $user_id
+            ]);
+            Articles::where('id',$article_id)->increment('save_count');
+        }
     }
 }

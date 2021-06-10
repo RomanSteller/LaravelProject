@@ -1,4 +1,7 @@
 @extends('app.app')
+@section('title')
+    {{$article->name}}
+@endsection
 @section('content')
     <div class="post">
         <div class="post_user">

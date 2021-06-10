@@ -24,6 +24,7 @@ Route::get('/article/{id}',[ArticleController::class,'oneArticle'])->name('artic
 Route::post('/article/{id}/comment',[ArticleController::class,'sendComment'])->name('sendComment');
 Route::get('/add/article',function (){return view('newArticle');})->name('newArticleForm');
 Route::post('/add/article/insert',[ArticleController::class,'newArticle'])->name('newArticle');
+Route::post('/addFavorite',[ArticleController::class,'addFavorite'])->name('addFavorite');
 
 Route::get('/',[ArticleController::class,'allArticles'])->name('home');
 Route::get('/best',[ArticleController::class,'bestArticles'])->name('best');

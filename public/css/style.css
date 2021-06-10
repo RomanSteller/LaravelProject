@@ -307,7 +307,10 @@ span{
 .post_statistic span{
     margin-left: 3px;
 }
-
+.addedFavorites{
+    color: #77a8d0;
+    opacity: .7;
+}
 .articles{
     margin-top: 30px;
 }
