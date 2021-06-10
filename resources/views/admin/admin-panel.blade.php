@@ -16,7 +16,7 @@
             <tr>
                 <td>{{$article->name}}</td>
                 <td>{{$article->user->name}}</td>
-                <td><a href="#" class="check-post">Посмотреть пост</a></td>
+                <td><a href="{{route('articleUnModer',['id'=>$article->id])}}}" class="check-post">Посмотреть пост</a></td>
             </tr>
             @endforeach
             </tbody>

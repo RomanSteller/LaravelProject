@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Articles;
+use App\Models\Comments;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -22,6 +23,17 @@ class UserController extends Controller
             $articlesChart = (new ArticleController)->articlesChart();
             $articles = Articles::with('tags')->where('user_id', $id)->get();
             return view('profile.userInfo',compact('articles','user','articlesChart'));
+        }
+        if($statistic_name === 'comments'){
+            $user = User::find($id);
+            $articlesChart = (new ArticleController)->articlesChart();
+
+            $comments = Comments::where('user_id',$id)->get();
+            foreach($comments as $comment){
+                (new ArticleController)->dateOutput($comment);
+            }
+
+            return view('profile.userInfo',compact('comments','user','articlesChart'));
         }
     }
 
@@ -56,20 +68,17 @@ class UserController extends Controller
 
         if(isset($request['email'])) {
 
-            $mail = [
-                'email' => 'required|email|unique:users'
-            ];
-            $validator = Validator::make($request->all(), $mail);
+//            $mail = [
+//                'email' => 'required|email|unique:users'
+//            ];
+//            Validator::make($request->all(), $mail);
 
-            if ($validator->fails()) {
-                return redirect()->back()->withErrors($validator)->withInput();
-             }
 
             $user = User::where('id',$_SESSION['user']['id'])->first();
-            $user->email = $mail['email'];
+            $user->email = $request['email'];
             $user->save();
 
-            return redirect(route('userSettings'))->withInput($request->input())->withErrors($validator, $this->errorBag());
+            return redirect(route('userSettings'));
         }
 
         if(isset($request['password']) && isset($request['password_confirm'])){

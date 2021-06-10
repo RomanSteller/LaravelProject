@@ -21,10 +21,10 @@
             </div>
         <ul>
             @if(isset($_SESSION['user']))
-            <li><a href="{{route('getUserArticles',['id'=>$user->id,'statistic_name'=>'articles'])}}">Статьи</a></li>
+            <li class="first-li"><a href="{{route('getUserArticles',['id'=>$user->id,'statistic_name'=>'articles'])}}">Статьи</a></li>
             @endif
             <li><a href="#">Избранное</a></li>
-            <li><a href="#">Комментарии</a></li>
+            <li><a href="{{route('getUserArticles',['id'=>$user->id,'statistic_name'=>'comments'])}}">Комментарии</a></li>
             <li><a href="#">История просмотра</a></li>
         </ul>
 
@@ -43,6 +43,10 @@
     ul{
         display: flex;
 
+    }
+
+    .first-li{
+        margin-left: 0;
     }
 
     ul>li{

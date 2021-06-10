@@ -28,8 +28,10 @@ class User extends Authenticatable
     }
 
     public function isAdmin(){
-        if($this->isAuth()){
-            return true;
+        if(isset($_SESSION['user'])){
+            if($_SESSION['user']['role'] === 'admin'){
+                return true;
+            }
         }
     }
 
