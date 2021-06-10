@@ -12,6 +12,7 @@
             <hr>
             <form action="{{ route('updateUser') }}" method="post">
                 @csrf
+
                 <div class="form_group">
                     <label for="name">Имя</label>
                     <input class="input-settings" type="text" id="name" name="name" value="{{$user->name}}" onchange="">
@@ -21,9 +22,11 @@
 
             <form action="{{ route('updateUser') }}" method="post">
                 @csrf
+
                 <div class="form_group">
                     <label for="description">Описание</label>
                     <input class="input-settings" type="text" value="{{$user->description}}" id="description" name="description">
+
                 </div>
                 <input type="submit" id="description_input">
             </form>
@@ -34,26 +37,20 @@
             <hr>
             <form action="{{ route('updateUser') }}" method="post">
                 @csrf
+
                 <h4>Смена электронной почты</h4>
                 <div class="form_group">
                     <label for="email">Электронная почта</label>
                     <input class="input-settings" name="email" type="text" id="email" value="{{ $user->email }}">
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
                 </div>
                 <input type="submit" id="email_input">
             </form>
 
             <form action="{{ route('updateUser') }}" method="post">
                 @csrf
-
-                @if ($errors->any())
-                    <div class="alert alert-danger">
-                        <ul>
-                            @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                @endif
 
                 <h4>Смена пароля</h4>
                 <div class="form_group">
@@ -63,6 +60,7 @@
                 <div class="form_group">
                     <label for="password_confirm">Повтор пароля</label>
                     <input class="input-settings" name="password_confirm" id="password_confirm" type="password">
+
                 </div>
                 <input type="submit" id="password_input">
             </form>

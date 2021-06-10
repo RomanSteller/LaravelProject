@@ -11,6 +11,8 @@ class User extends Authenticatable
 {
     use HasFactory, Notifiable;
 
+    protected $table = 'users';
+
     public function article(){
         return $this->hasMany(Articles::class);
     }
@@ -21,6 +23,12 @@ class User extends Authenticatable
 
     public function isAuth(){
         if(isset($_SESSION['user'])){
+            return true;
+        }
+    }
+
+    public function isAdmin(){
+        if($this->isAuth()){
             return true;
         }
     }

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
@@ -45,6 +46,8 @@ Route::get('/user/{id}/{statistic_name}',[UserController::class,'getUserArticles
 Route::group(['middleware' => 'isAuth'],function(){
 
 });
+
+Route::get('/admin',[AdminController::class,'index'])->name('admin');
 
 Route::get('/logout',[AuthController::class,'dropSession'])->name('logout');
 

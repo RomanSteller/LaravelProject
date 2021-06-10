@@ -6,6 +6,7 @@ use App\Models\Articles;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
@@ -55,27 +56,37 @@ class UserController extends Controller
 
         if(isset($request['email'])) {
 
-            $mail = $request->validate([
-                'email' => 'required|email|unique:user'
-            ]);
+            $mail = [
+                'email' => 'required|email|unique:users'
+            ];
+            $validator = Validator::make($request->all(), $mail);
+
+            if ($validator->fails()) {
+                return redirect()->back()->withErrors($validator)->withInput();
+             }
 
             $user = User::where('id',$_SESSION['user']['id'])->first();
             $user->email = $mail['email'];
             $user->save();
 
-            return redirect(route('userSettings'));
+            return redirect(route('userSettings'))->withInput($request->input())->withErrors($validator, $this->errorBag());
         }
 
-        if(isset($request['password']) && !empty($request['password'])
-            && isset($request['password_confirm']) && !empty($request['password_confirm']) ){
+        if(isset($request['password']) && isset($request['password_confirm'])){
 
-            $pwd = $request->validate([
+            $request->validate([
                 'password' => 'required|min:9',
                 'password_confirm' => 'required|same:password',
             ]);
 
+
+
+//            $user = User::where('id',$_SESSION['user']['id'])->first();
+//            $user->password = Hash::make($pwd['password']);
+//            $user->save();
+
             $user = User::where('id',$_SESSION['user']['id'])->first();
-            $user->password = Hash::make($pwd['password']);
+            $user->password = Hash::make($request['password']);
             $user->save();
 
             return redirect(route('userSettings'));
