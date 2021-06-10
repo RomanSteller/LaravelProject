@@ -12,7 +12,7 @@
     <div>
         <form action="{{route('newArticle')}}" method="post" enctype="multipart/form-data">
             @csrf
-            <input type="text" placeholder="Заголовок" name="caption" id="caption" name="caption">
+            <input type="text" placeholder="Заголовок" name="caption" id="caption">
             <div id="new_input">
 
             </div>

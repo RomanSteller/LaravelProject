@@ -134,7 +134,6 @@ class ArticleController extends Controller
     public function tagArticles($tag){
         $articles = Articles::all();// Надо добавить сортировку по времени(за сегодня, неделю, месяц)месяц
 
-
         foreach ($articles as $article){
             ArticleController::dateOutput($article);
         }

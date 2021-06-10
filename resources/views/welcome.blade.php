@@ -5,7 +5,7 @@
             <div class="post_user">
                 <a href="{{route('article',['id'=>$article->id])}}">
                 </a>
-                <a href="">
+                <a href="{{route('getUser',['id' => $article->user->id])}}">
                     <div class="post_user_name">
                         {{$article->user->name}}
                     </div>
