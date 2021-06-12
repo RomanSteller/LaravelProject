@@ -7,11 +7,15 @@ use App\Models\Comments;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 
+date_default_timezone_set('Europe/Moscow');
+
 class ArticleController extends Controller
 {
+
     public function dateOutputDay($article){
         switch($article->created_at->format('w')){
             case 1:
@@ -81,6 +85,11 @@ class ArticleController extends Controller
     }
 
 
+    public function dateFormat($article){
+        $article['created_time'] = $article['created_at']->format('y.m.d');
+        return $article;
+    }
+
     public function dateOutput($article)
     {
             if ($article['created_at']->format('d') > date('d')-1 && $article['created_at']->format('m Y')==date('m Y'))
@@ -119,6 +128,34 @@ class ArticleController extends Controller
         //dd($articlesChart);
         if($articles)
         return view('welcome',compact('articles', 'articlesChart'));
+    }
+
+    public function orderByTime($interval){
+        date_default_timezone_set('Europe/Moscow');
+
+        $yearStart = (new \Carbon\Carbon)->startOfYear()->format('y.m.d');
+
+        $articles = Articles::orderBy('created_at','desc')->where('status','Одобрено модерацией')->get();
+        $curDate = date('y.m.d');
+        $articlesChart = ArticleController::articlesChart();
+        foreach ($articles as $article){
+            ArticleController::dateFormat($article);
+        }
+
+        if($interval === 'today'){
+            $articles = $articles->where('created_time',$curDate);
+            return view('welcome',compact('articles', 'articlesChart'));
+
+        }else if($interval === 'oneWeak') {
+            $articles = $articles->whereBetween('created_time',[date('d')-7,$curDate]);
+            return view('welcome',compact('articles', 'articlesChart'));
+        }else if($interval === 'forYear'){
+            $articles = $articles->whereBetween('created_time',[$yearStart,$curDate]);
+            return view('welcome',compact('articles', 'articlesChart'));
+        }
+
+//        $article['created_at']->
+
     }
 
     public function bestArticles(){

@@ -29,6 +29,8 @@
                     <li class="top-li" id="top-li"><a href="#" class="user-a">{{$_SESSION['user']['login']}}</a>
                         <ul class="child-ul" id="child-ul">
                             <li class="li"><a href="{{route('getUserArticles',['id'=>$_SESSION['user']['id'],'statistic_name'=>'articles'])}}" class="li-a">Профиль</a></li>
+                            <li class="li"><a href="" class="li-a">Мои публикации</a></li>
+
                             @if($_SESSION['user']['role'] === 'admin')
                                 <li class="li"><a href="{{route('admin')}}" class="li-a">Войти в админ-панель</a></li>
                             @endif

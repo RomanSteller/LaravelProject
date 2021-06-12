@@ -14,18 +14,22 @@ use Illuminate\Support\Facades\Route;
 |
 | Roman Katin and Maxim Tsetserev (c) 2021
 |
-*/
+//*/
+
 session_start();
 
 Route::get('/',[ArticleController::class,'allArticles'])->name('home');
 Route::get('/best',[ArticleController::class,'bestArticles'])->name('best');
 Route::get('/tag/{tag}',[ArticleController::class,'tagArticles'])->name('tag');
 Route::get('/page-error',[Controller::class,'notFound'])->name('errorPage');
-
+Route::get('/article/{id}',[ArticleController::class,'oneArticle'])->name('article');
+Route::get('/article/sortBy/{interval}',[ArticleController::class,'orderByTime'])->name('articleForTime');
 Route::get('/user/settings',[UserController::class,'userSettingView'])->name('userSettings');
 Route::get('/user/{id}',[UserController::class,'index'])->name('getUser');
 Route::get('/user/{id}/{statistic_name}',[UserController::class,'getUserArticles'])->name('getUserArticles');
-Route::get('/article/{id}',[ArticleController::class,'oneArticle'])->name('article');
+
+
+
 
 Route::get('/auth',function (){
    return view('auth.auth');

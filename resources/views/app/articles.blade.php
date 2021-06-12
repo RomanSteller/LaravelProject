@@ -19,9 +19,9 @@
         </div>
         <div class="switch_of_time">
             <ul>
-                <li><a href="#">Сегодня</a></li>
-                <li><a href="#">Неделя</a></li>
-                <li><a href="#">Всё время</a></li>
+                <li><a href="{{route('articleForTime',['interval'=>'today'])}}">Сегодня</a></li>
+                <li><a href="{{route('articleForTime',['interval'=>'oneWeak'])}}">Неделя</a></li>
+                <li><a href="{{route('articleForTime',['interval'=>'forYear'])}}">За год</a></li>
             </ul>
         </div>
     </div>
