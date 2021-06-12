@@ -109,6 +109,23 @@ class ArticleController extends Controller
         $articlesChart = Articles::orderBy('save_count','desc')->whereDate('created_at', '>=', Carbon::now()->startOfMonth())->limit(5)->get();
         return $articlesChart;
     }
+    public function usersChart(){
+        $usersChart = User::all();
+        $articlesList = Articles::all();
+        foreach ($usersChart as $user){
+            foreach ($articlesList as $article){
+                if ($article['user_id'] == $user['id']){
+                    $user['save_count'] = $user['save_count'] + $article['save_count'];
+                }
+            }
+        }
+        //$usersChart = $usersChart->sortByDesc('save_count');
+        //dd($usersChart);
+        $usersChart = $usersChart->slice(0,5)->sortByDesc('save_count');
+
+        //dd($usersChart,$articlesList);
+        return $usersChart;
+    }
 
     public function allArticles()
     {
@@ -117,9 +134,9 @@ class ArticleController extends Controller
             ArticleController::dateOutput($article);
         }
         $articlesChart = ArticleController::articlesChart();
-        //dd($articlesChart);
+        $usersChart = ArticleController::usersChart();
         if($articles)
-        return view('welcome',compact('articles', 'articlesChart'));
+        return view('welcome',compact('articles', 'articlesChart','usersChart'));
     }
 
     public function bestArticles(){
@@ -128,20 +145,20 @@ class ArticleController extends Controller
             ArticleController::dateOutput($article);
         }
         $articlesChart = ArticleController::articlesChart();
+        $usersChart = ArticleController::usersChart();
         if($articles)
-            return view('welcome',compact('articles', 'articlesChart'));
+            return view('welcome',compact('articles', 'articlesChart','usersChart'));
     }
 
     public function tagArticles($tag){
         $articles = Articles::all();// Надо добавить сортировку по времени(за сегодня, неделю, месяц)месяц
-
-
         foreach ($articles as $article){
             ArticleController::dateOutput($article);
         }
         $articlesChart = ArticleController::articlesChart();
+        $usersChart = ArticleController::usersChart();
         if($articles)
-            return view('welcome',compact('articles', 'articlesChart'));
+            return view('welcome',compact('articles', 'articlesChart','usersChart'));
     }
 
     public function oneArticle($id){
@@ -154,11 +171,12 @@ class ArticleController extends Controller
         }
 
         $articlesChart = ArticleController::articlesChart();
+        $usersChart = ArticleController::usersChart();
 //        $comments = Comments::where('article_id',$id)->get();
 //        ArticleController::dateOutput($comments);
 
         if($article){
-            return view('article',compact('article', 'articlesChart','comments'));
+            return view('article',compact('article', 'articlesChart','comments','usersChart'));
         }else if(empty($article)){
             return response()->json([
                 'message'=>'Данная статья отсутствует'
@@ -187,7 +205,7 @@ class ArticleController extends Controller
             }
         }
         $articles = Articles::create([
-            'user_id' => '1', //Добавить из сессии
+            'user_id' => $_SESSION['user']['id'],
             'name' => $request['caption'],
             'content' => $a
         ]);
@@ -216,9 +234,7 @@ class ArticleController extends Controller
     }
 
     public function updateViews($id){
-        $article = Articles::where('id',$id)->first();
-        $article['views_count'] = $article['views_count']+1;
-        $article->save();
+        Articles::where('id',$id)->increment('views_count');
     }
 
     public function addFavorite(Request $request){
