@@ -174,7 +174,7 @@ class ArticleController extends Controller
         date_default_timezone_set('Europe/Moscow');
 
         $yearStart = (new \Carbon\Carbon)->startOfYear()->format('y.m.d');
-
+        $usersChart = ArticleController::usersChart();
         $articles = Articles::orderBy('created_at','desc')->where('status','Одобрено модерацией')->get();
         $curDate = date('y.m.d');
         $articlesChart = ArticleController::articlesChart();
@@ -184,14 +184,14 @@ class ArticleController extends Controller
 
         if($interval === 'today'){
             $articles = $articles->where('created_time',$curDate);
-            return view('welcome',compact('articles', 'articlesChart'));
+            return view('welcome',compact('articles', 'articlesChart','usersChart'));
 
         }else if($interval === 'oneWeak') {
             $articles = $articles->whereBetween('created_time',[date('d')-7,$curDate]);
-            return view('welcome',compact('articles', 'articlesChart'));
+            return view('welcome',compact('articles', 'articlesChart','usersChart'));
         }else if($interval === 'forYear'){
             $articles = $articles->whereBetween('created_time',[$yearStart,$curDate]);
-            return view('welcome',compact('articles', 'articlesChart'));
+            return view('welcome',compact('articles', 'articlesChart','usersChart'));
         }
 
 //        $article['created_at']->
@@ -280,9 +280,6 @@ class ArticleController extends Controller
     }
 
     public function sendComment(Request $request,$id){
-
-
-
          Comments::create([
             'user_id' => $_SESSION['user']['id'],
             'article_id' => $id,
@@ -290,7 +287,6 @@ class ArticleController extends Controller
         ]);
 
         return redirect(route('article',['id'=>$id]));
-
     }
 
     public function updateViews($id){
@@ -305,7 +301,7 @@ class ArticleController extends Controller
             Favorites::where([['user_id', $user_id],['article_id',$article_id]])->delete();
             Articles::where('id',$article_id)->decrement('save_count');
         }else{
-            $user = Favorites::create([
+             Favorites::create([
                 'article_id' => $article_id,
                 'user_id' => $user_id
             ]);

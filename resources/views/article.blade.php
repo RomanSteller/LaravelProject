@@ -60,7 +60,7 @@
             @foreach($comments as $comment)
                 <div class="user_time_info">
                     <img class="comment-img" src="{{Storage::url($comment->article->user->photo)}}" alt="">
-                    <p>{{$comment->article->user->login}}</p>
+                    <p class="comment_login">{{$comment->article->user->login}}</p>
                     <p class="comment_time">{{$comment->created_time}}</p>
                 </div>
                 <div class="comment_content">
@@ -110,7 +110,11 @@
     }
 
     .comment_time{
-        font-size: 10px
+        font-size: 15px
+    }
+
+    .comment_login{
+        font-size: 20px;
     }
 
     .user_time_info p{
@@ -118,6 +122,13 @@
     }
     .comment_content{
         margin-top: 6px;
+
+    }
+
+    .comment_content p{
+        margin-top: 6px;
+        font-size: 25px;
+
     }
     .user_time_info{
         margin-top: 10px;

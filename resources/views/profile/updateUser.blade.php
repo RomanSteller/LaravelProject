@@ -51,7 +51,6 @@
 
             <form action="{{ route('updateUser') }}" method="post">
                 @csrf
-
                 <h4>Смена пароля</h4>
                 <div class="form_group">
                     <label for="password">Пароль</label>
@@ -60,7 +59,6 @@
                 <div class="form_group">
                     <label for="password_confirm">Повтор пароля</label>
                     <input class="input-settings" name="password_confirm" id="password_confirm" type="password">
-
                 </div>
                 <input type="submit" id="password_input">
             </form>

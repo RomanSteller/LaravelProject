@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Articles;
 use App\Models\Comments;
+use App\Models\Favorites;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -21,24 +22,30 @@ class UserController extends Controller
 
     public function getUserArticles($id, $statistic_name)
     {
+        $user = User::find($id);
+        $articlesChart = (new ArticleController)->articlesChart();
+        $usersChart = (new ArticleController)->usersChart();
+
         if ($statistic_name === 'articles') {
-            $user = User::find($id);
-            $articlesChart = (new ArticleController)->articlesChart();
             $articles = Articles::with('tags')->where('user_id', $id)->get();
-            $usersChart = (new ArticleController)->usersChart();
             return view('profile.userInfo', compact('articles', 'user', 'articlesChart', 'usersChart'));
         }
-        if ($statistic_name === 'comments') {
-            $user = User::find($id);
-            $articlesChart = (new ArticleController)->articlesChart();
 
+        if ($statistic_name === 'comments') {
             $comments = Comments::where('user_id', $id)->get();
             foreach ($comments as $comment) {
                 (new ArticleController)->dateOutput($comment);
             }
-
-            return view('profile.userInfo', compact('comments', 'user', 'articlesChart'));
+            return view('profile.userInfo', compact('comments', 'user', 'articlesChart','usersChart'));
         }
+
+        if($statistic_name === 'favorites'){
+            $favorites = Favorites::where('user_id',$id)->get();
+            return view('profile.userInfo', compact('favorites', 'user', 'articlesChart','usersChart'));
+        }
+
+
+
     }
 
     public function userSettingView()

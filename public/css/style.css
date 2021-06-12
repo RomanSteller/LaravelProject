@@ -397,7 +397,7 @@ span{
 
 }
 .top-li{
-    /*position: relative;*/
+    position: relative;
 }
 .child-ul{
     display: none;
@@ -412,8 +412,10 @@ span{
     z-index: 9999;
     margin-top: 10px;
     background: #303b44;
+    right: 0;
     width: 250px;
-    right:20px;
+    margin-left:10px;
+    top:40px;
     position: absolute;
     font-size: 15px;
     border-radius: 3px;
@@ -429,6 +431,16 @@ span{
 
 .top-ul{
 
+}
+
+.li-top{
+    display: flex;
+    flex-direction: column;
+}
+
+.li-top a:first-child{
+    font-size: 20px;
+    color: dodgerblue;
 }
 
 .li{

@@ -13,6 +13,10 @@ class Favorites extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function article(){
+        return $this->belongsTo(Articles::class,'article_id','id');
+    }
+
     protected $fillable = [
         'article_id',
         'user_id'
