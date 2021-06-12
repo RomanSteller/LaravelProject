@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 *{
     margin: 0;
     padding: 0;
@@ -5,7 +6,7 @@
 }
 
 body{
-    font-family: 'Helvetica', sans-serif;
+    font-family: 'Roboto', sans-serif;
 }
 
 header{
@@ -174,23 +175,18 @@ li{
     width: 100%;
     padding: 0 5px;
 }
-
 .top_text{
     border-bottom: 2px solid  #77a8d0;
     padding-bottom: 10px;
 }
-
-.top_text h2{
-    font-weight: normal;
-    color: #222222;
-}
-
-
 .publicist_logo{
-    width: 30px;
-    height: 30px;
-    background-color: #77a8d0;
+    width: 40px;
+    height: 40px;
     border-radius: 2px;
+}
+.publicist_logo img{
+    height: 40px;
+    width: 40px;
 }
 
 .top_publicists{
@@ -207,9 +203,11 @@ li{
 .publicist_data{
     display: flex;
     justify-content: space-between;
-    align-items: flex-end;
+    align-items: center;
 }
-
+.publicist_name h3,.article_name h3{
+    font-size: 16px;
+}
 .publicist_name{
     margin-left: 7px;
 }
@@ -280,6 +278,7 @@ span{
 
 .post_name{
     margin: 20px 0 5px;
+    font-size: 18px;
 }
 .post_name a{
     color: #222222;
@@ -290,14 +289,22 @@ span{
 }
 .post_content{
     margin-top: 15px;
-    font-size: 18px;
+    font-size: 17px;
     color: #222222;
+    line-height: 1.5;
+}
+.post_content p{
+    margin: 5px 0;
+}
+.post_content img{
+    margin: 10px 0;
 }
 .post_content *{
     width: 100%;
 }
 .post_statistic{
     margin-top: 5px;
+    margin-bottom: 10px;
     display: flex;
     align-items: center;
 }
@@ -307,7 +314,10 @@ span{
 .post_statistic span{
     margin-left: 3px;
 }
-
+.addedFavorites{
+    color: #77a8d0;
+    opacity: .7;
+}
 .articles{
     margin-top: 30px;
 }

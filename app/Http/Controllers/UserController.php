@@ -14,7 +14,8 @@ class UserController extends Controller
     public function index($id){
         $user = User::find($id);
         $articlesChart = (new ArticleController)->articlesChart();
-        return view('profile.profile',compact('user','articlesChart'));
+        $usersChart = (new ArticleController)->usersChart();
+        return view('profile.profile',compact('user','articlesChart','usersChart'));
     }
 
     public function getUserArticles($id,$statistic_name){
@@ -22,7 +23,8 @@ class UserController extends Controller
             $user = User::find($id);
             $articlesChart = (new ArticleController)->articlesChart();
             $articles = Articles::with('tags')->where('user_id', $id)->get();
-            return view('profile.userInfo',compact('articles','user','articlesChart'));
+            $usersChart = (new ArticleController)->usersChart();
+            return view('profile.userInfo',compact('articles','user','articlesChart','usersChart'));
         }
         if($statistic_name === 'comments'){
             $user = User::find($id);
