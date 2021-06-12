@@ -29,6 +29,7 @@
                     <li class="top-li" id="top-li"><a href="#" class="user-a">{{$_SESSION['user']['login']}}</a>
                         <ul class="child-ul" id="child-ul">
                             <li class="li"><a href="{{route('getUserArticles',['id'=>$_SESSION['user']['id'],'statistic_name'=>'articles'])}}" class="li-a">Профиль</a></li>
+                            <li class="li"><a href="{{route('newArticleForm')}}" class="li-a">Новый пост</a></li>
                             @if($_SESSION['user']['role'] === 'admin')
                                 <li class="li"><a href="{{route('admin')}}" class="li-a">Войти в админ-панель</a></li>
                             @endif
@@ -52,20 +53,21 @@
                     <a href=""><h2>Топ публицистов</h2></a>
                 </div>
                 <div class="top_publicists">
-
-                    <div class="publicist">
-                        <div class="publicist_data">
-                            <div class="publicist_logo">
-
+                    @foreach($usersChart as $userChart)
+                        <div class="publicist">
+                            <div class="publicist_data">
+                                <div class="publicist_logo">
+                                    <img src="{{Storage::url($userChart->photo)}}" alt="">
+                                </div>
+                                <div class="publicist_name">
+                                    <a href="{{route('getUser',['id'=>$userChart->id])}}"><h3>{{$userChart->name}}</h3></a>
+                                </div>
                             </div>
-                            <div class="publicist_name">
-                                <a href=""><h3>Steellsey</h3></a>
+                            <div class="publicist_views">
+                                <span>{{$userChart->save_count}}</span>
                             </div>
                         </div>
-                        <div class="publicist_views">
-                            <span>228</span>
-                        </div>
-                    </div>
+                    @endforeach
                 </div>
             </div>
 
