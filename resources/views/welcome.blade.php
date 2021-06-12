@@ -3,13 +3,12 @@
     @foreach($articles as $article)
         <div class="post">
             <div class="post_user">
-                <a href="{{route('article',['id'=>$article->id])}}">
-                </a>
-                <a href="{{route('getUser',['id' => $article->user->id])}}">
-                    <div class="post_user_name">
-                        {{$article->user->name}}
-                    </div>
-                </a>
+                <div class="post_user_logo">
+                    <a href="{{route('getUser',['id'=>$article->user->id])}}"><img src="{{Storage::url($article->user->photo)}}"></a>
+                </div>
+                <div class="post_user_name">
+                    <a href="{{route('getUser',['id'=>$article->user->id])}}">{{$article->user->name}}</a>
+                </div>
                 <div class="post_date_time">
                     {{$article->created_time}}
                 </div>
@@ -34,11 +33,17 @@
                     <span>{{$article->views_count}}</span>
                 </div>
                 <div> <!-- Сохранить -->
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-bookmarks" viewBox="0 0 16 16">
+                    <svg id="{{$article->id}}" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-bookmarks, favorite_button
+                        @if (isset($_SESSION['user']))
+                    @if (\App\Models\Favorites::where('article_id', '=', $article->id)->exists()&&\App\Models\Favorites::where('user_id', $_SESSION['user']['id'])->exists())
+                        addedFavorites
+@endif
+                    @endif
+                        " viewBox="0 0 16 16">
                         <path d="M2 4a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v11.5a.5.5 0 0 1-.777.416L7 13.101l-4.223 2.815A.5.5 0 0 1 2 15.5V4zm2-1a1 1 0 0 0-1 1v10.566l3.723-2.482a.5.5 0 0 1 .554 0L11 14.566V4a1 1 0 0 0-1-1H4z"/>
                         <path d="M4.268 1H12a1 1 0 0 1 1 1v11.768l.223.148A.5.5 0 0 0 14 13.5V2a2 2 0 0 0-2-2H6a2 2 0 0 0-1.732 1z"/>
                     </svg>
-                    <span>{{$article->save_count}}</span>
+                    <span class="save_count{{$article->id}}">{{$article->save_count}}</span>
                 </div>
                 <div> <!-- Комментарии -->
 
@@ -46,9 +51,35 @@
             </div>
         </div>
     @endforeach
+
+    <style>
+        .post{
+            margin-top: 20px;
+        }
+    </style>
+
+    <script type="text/javascript">
+        $('.post svg').click(function(e){
+            let click_id = $(this).attr('id'),
+                save_count = $('.save_count'+click_id).html();
+            $.ajax({
+                url: "{{route('addFavorite')}}",
+                type:"POST",
+                data:{
+                    "_token": "{{ csrf_token() }}",
+                    article_id:click_id
+                },
+                success:function(response){
+                    console.log(response);
+                },
+            });
+            if ($(this).hasClass('addedFavorites')){
+                $(this).removeClass('addedFavorites');
+                $('.save_count'+click_id).text(+save_count-1);
+            }else{
+                $(this).addClass('addedFavorites');
+                $('.save_count'+click_id).text(+save_count+1);
+            }
+        });
+    </script>
 @endsection
-<style>
-    .post{
-        margin-top: 20px;
-    }
-</style>
