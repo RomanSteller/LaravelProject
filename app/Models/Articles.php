@@ -22,6 +22,9 @@ class Articles extends Model
         return $this->hasMany(Comments::class,'article_id');
     }
 
+    public function UnModeratedArticles(){
+        return Articles::where('status','Находится на модерации')->get();
+    }
 
     protected $fillable = [
         'user_id',

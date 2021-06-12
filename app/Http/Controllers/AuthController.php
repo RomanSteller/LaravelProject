@@ -54,4 +54,6 @@ class AuthController extends Controller
         session_destroy();
         return redirect()->route('home');
     }
+
+
 }

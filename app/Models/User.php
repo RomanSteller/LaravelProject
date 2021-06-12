@@ -11,6 +11,8 @@ class User extends Authenticatable
 {
     use HasFactory, Notifiable;
 
+    protected $table = 'users';
+
     public function article(){
         return $this->hasMany(Articles::class);
     }
@@ -29,6 +31,14 @@ class User extends Authenticatable
         }
     }
 
+    public function isAdmin(){
+        if(isset($_SESSION['user'])){
+            if($_SESSION['user']['role'] === 'admin'){
+                return true;
+            }
+        }
+    }
+
     /**
      * The attributes that are mass assignable.
      *
@@ -40,7 +50,8 @@ class User extends Authenticatable
         'password',
         'login',
         'role',
-        'photo'
+        'photo',
+        'description'
     ];
 
     /**

@@ -106,7 +106,7 @@ class ArticleController extends Controller
     }
 
     public function articlesChart(){
-        $articlesChart = Articles::orderBy('save_count','desc')->whereDate('created_at', '>=', Carbon::now()->startOfMonth())->limit(5)->get();
+        $articlesChart = Articles::orderBy('save_count','desc')->where('status','Одобрено модерацией')->whereDate('created_at', '>=', Carbon::now()->startOfMonth())->limit(5)->get();
         return $articlesChart;
     }
     public function usersChart(){
@@ -129,7 +129,7 @@ class ArticleController extends Controller
 
     public function allArticles()
     {
-        $articles = Articles::orderBy('created_at','desc')->get();
+        $articles = Articles::orderBy('created_at','desc')->where('status','Одобрено модерацией')->get();
         foreach ($articles as $article){
             ArticleController::dateOutput($article);
         }
@@ -174,6 +174,7 @@ class ArticleController extends Controller
         $usersChart = ArticleController::usersChart();
 //        $comments = Comments::where('article_id',$id)->get();
 //        ArticleController::dateOutput($comments);
+
 
         if($article){
             return view('article',compact('article', 'articlesChart','comments','usersChart'));
