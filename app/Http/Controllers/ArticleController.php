@@ -8,100 +8,129 @@ use App\Models\Favorites;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 
+date_default_timezone_set('Europe/Moscow');
+
 class ArticleController extends Controller
 {
+
     public function dateOutputDay($article){
         switch($article->created_at->format('w')){
             case 1:
                 $created_time_day = 'Понедельник';
+                return $created_time_day;
                 break;
             case 2:
                 $created_time_day = 'Вторник';
+                return $created_time_day;
                 break;
             case 3:
                 $created_time_day = 'Среда';
+                return $created_time_day;
                 break;
             case 4:
                 $created_time_day = 'Четверг';
+                return $created_time_day;
                 break;
             case 5:
                 $created_time_day = 'Пятница';
+                return $created_time_day;
                 break;
             case 6:
                 $created_time_day = 'Суббота';
+                return $created_time_day;
                 break;
             case 7:
                 $created_time_day = 'Воскресенье';
+                return $created_time_day;
                 break;
         }
-        return $created_time_day;
+
     }
     public function dateOutputMounth($article){
         switch($article['created_at']->format('m')){
             case 1:
                 $created_time_month = 'Января';
+                return $created_time_month;
                 break;
             case 2:
                 $created_time_month = 'Февраля';
+                return $created_time_month;
                 break;
             case 3:
                 $created_time_month = 'Марта';
+                return $created_time_month;
                 break;
             case 4:
                 $created_time_month = 'Апреля';
+                return $created_time_month;
                 break;
             case 5:
                 $created_time_month = 'Мая';
+                 return $created_time_month;
                 break;
             case 6:
                 $created_time_month = 'Июня';
+                 return $created_time_month;
                 break;
             case 7:
                 $created_time_month = 'Июля';
+                 return $created_time_month;
                 break;
             case 8:
                 $created_time_month = 'Августа';
+                 return $created_time_month;
                 break;
             case 9:
                 $created_time_month = 'Сентября';
+                 return $created_time_month;
                 break;
             case 10:
                 $created_time_month = 'Октября';
+                 return $created_time_month;
                 break;
             case 11:
                 $created_time_month = 'Ноября';
+                 return $created_time_month;
                 break;
             case 12:
                 $created_time_month = 'Декабря';
+                return $created_time_month;
                 break;
         }
-        return $created_time_month;
+
     }
 
 
     public function dateOutput($article)
     {
-            if ($article['created_at']->format('d') > date('d')-1 && $article['created_at']->format('m Y')==date('m Y'))
-                $article['created_time'] = $article['created_at']->diffForHumans();
-            elseif ($article['created_at']->format('d')==date('d')-1 && $article['created_at']->format('m Y')==date('m Y'))
-                $article['created_time'] = 'вчера, в '.$article['created_at']->format('H:i');
-            elseif($article['created_at']->format('d')<date('d')-1 && $article['created_at']->format('m Y')==date('m Y')){
-                $created_time_day = ArticleController::dateOutputDay($article);
-                $article['created_time'] = $created_time_day.', в '.$article['created_at']->format('H:i');
-            }
-            elseif($article['created_at']->format('m')<date('m') && $article['created_at']->format('y')==date('y')){
-                $created_time_month = ArticleController::dateOutputMounth($article);
-                $created_time_day = ArticleController::dateOutputDay($article);
-                $article['created_time'] = $article['created_at']->format('j').' '.$created_time_month.' '.', в '.$article['created_at']->format('H:i');
-            }
-            elseif($article['created_at']->format('y')<date('y')){
-                $created_time_month = ArticleController::dateOutputMounth($article);
-                $created_time_day = ArticleController::dateOutputDay($article);
-                $article['created_time'] = $article['created_at']->format('j').' '.$created_time_month.$article['created_at']->format(' Y').' в '.$article['created_at']->format('H:i');
-            }
+        if ($article['created_at']->format('d') > date('d')-1 && $article['created_at']->format('m Y')==date('m Y'))
+            $article['created_time'] = $article['created_at']->diffForHumans();
+        elseif ($article['created_at']->format('d')==date('d')-1 && $article['created_at']->format('m Y')==date('m Y'))
+            $article['created_time'] = 'вчера, в '.$article['created_at']->format('H:i');
+        elseif($article['created_at']->format('d')<date('d')-1 && $article['created_at']->format('m Y')==date('m Y')){
+            $created_time_day = ArticleController::dateOutputDay($article);
+            $article['created_time'] = $created_time_day.', в '.$article['created_at']->format('H:i');
+        }
+        elseif($article['created_at']->format('m')<date('m') && $article['created_at']->format('y')==date('y')){
+            $created_time_month = ArticleController::dateOutputMounth($article);
+            $created_time_day = ArticleController::dateOutputDay($article);
+            $article['created_time'] = $article['created_at']->format('j').' '.$created_time_month.' '.', в '.$article['created_at']->format('H:i');
+        }
+        elseif($article['created_at']->format('y')<date('y')){
+            $created_time_month = ArticleController::dateOutputMounth($article);
+            $created_time_day = ArticleController::dateOutputDay($article);
+            $article['created_time'] = $article['created_at']->format('j').' '.$created_time_month.$article['created_at']->format(' Y').' в '.$article['created_at']->format('H:i');
+        }
+        return $article;
+    }
+
+    private static function dateFormat($article)
+    {
+        $article['created_time'] = $article['created_at']->format('y.m.d');
         return $article;
     }
 
@@ -137,6 +166,36 @@ class ArticleController extends Controller
         $usersChart = ArticleController::usersChart();
         if($articles)
         return view('welcome',compact('articles', 'articlesChart','usersChart'));
+    }
+
+
+
+    public function orderByTime($interval){
+        date_default_timezone_set('Europe/Moscow');
+
+        $yearStart = (new \Carbon\Carbon)->startOfYear()->format('y.m.d');
+
+        $articles = Articles::orderBy('created_at','desc')->where('status','Одобрено модерацией')->get();
+        $curDate = date('y.m.d');
+        $articlesChart = ArticleController::articlesChart();
+        foreach ($articles as $article){
+            ArticleController::dateFormat($article);
+        }
+
+        if($interval === 'today'){
+            $articles = $articles->where('created_time',$curDate);
+            return view('welcome',compact('articles', 'articlesChart'));
+
+        }else if($interval === 'oneWeak') {
+            $articles = $articles->whereBetween('created_time',[date('d')-7,$curDate]);
+            return view('welcome',compact('articles', 'articlesChart'));
+        }else if($interval === 'forYear'){
+            $articles = $articles->whereBetween('created_time',[$yearStart,$curDate]);
+            return view('welcome',compact('articles', 'articlesChart'));
+        }
+
+//        $article['created_at']->
+
     }
 
     public function bestArticles(){

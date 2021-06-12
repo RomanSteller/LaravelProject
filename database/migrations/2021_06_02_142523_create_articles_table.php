@@ -17,8 +17,8 @@ class CreateArticlesTable extends Migration
             $table->id();
             $table->integer('user_id');
             $table->string('name');
-            $table->string('status')->default('modering');
-            $table->integer('save_count')->default('0');
+            $table->string('status')->default('Находится на модерации');
+            $table->integer('save_count');
             $table->longText('content');
             $table->string('photo');
             $table->timestamps();

@@ -412,9 +412,11 @@ span{
     z-index: 9999;
     margin-top: 10px;
     background: #303b44;
-    width: 200px;
-    top:30px;
+    width: 250px;
+    right:20px;
     position: absolute;
+    font-size: 15px;
+    border-radius: 3px;
 
 }
 
@@ -422,8 +424,7 @@ span{
 .user-a{
     text-decoration: none;
     color:white;
-    font-weight: bold;
-    font-size: 20px;
+    font-size: 15px;
 }
 
 .top-ul{
@@ -431,5 +432,6 @@ span{
 }
 
 .li{
-    margin-top: 10px;
+    padding: 10px 5px;
+    margin-right: 100px;
 }

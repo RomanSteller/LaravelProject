@@ -10,7 +10,7 @@
                     <img src="{{Storage::url($article->user->photo)}}" alt="">
                 </div>
             </a>
-            <a href="/user/{{$article->user->id}}">
+            <a href="{{route('getUser',['id' => $article->user->id ])}}">
                 <div class="post_user_name">
                     {{$article->user->name}}
                 </div>
