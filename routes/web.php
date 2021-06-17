@@ -27,7 +27,7 @@ Route::get('/article/sortBy/{interval}',[ArticleController::class,'orderByTime']
 Route::get('/user/settings',[UserController::class,'userSettingView'])->name('userSettings');
 Route::get('/user/{id}',[UserController::class,'index'])->name('getUser');
 Route::get('/user/{id}/{statistic_name}',[UserController::class,'getUserArticles'])->name('getUserArticles');
-
+Route::get('/article/{id}',[ArticleController::class,'oneArticle'])->name('article');
 
 
 
@@ -41,7 +41,6 @@ Route::get('/auth',function (){
 Route::group(['middleware' => 'isAuth'],function(){
     Route::post('/user/updateProfile',[UserController::class,'updateUser'])->name('updateUser');
     Route::get('/user/settings',[UserController::class,'userSettingView'])->name('userSettings');
-    Route::get('/article/{id}',[ArticleController::class,'oneArticle'])->name('article');
     Route::post('/addFavorite',[ArticleController::class,'addFavorite'])->name('addFavorite');
     Route::post('/article/{id}/comment',[ArticleController::class,'sendComment'])->name('sendComment');
     Route::get('/add/article',function (){return view('newArticle');})->name('newArticleForm');

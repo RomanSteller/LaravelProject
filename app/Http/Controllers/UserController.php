@@ -59,7 +59,8 @@ class UserController extends Controller
             $validator = Validator::make($request->all(), [
                 'name' => ['required', 'string', 'max:500'],
             ],$messages = [
-                ''
+                'name.required' => 'Поле имени не должно быть пустым',
+                'name.string' => 'В имени не должно быть цифр и других знаков',
             ]);
 
             if ($validator->fails()) {
