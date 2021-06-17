@@ -12,15 +12,16 @@ class AdminController extends Controller
     public function index(){
         $articleModel = new Articles();
         $articlesChart = (new ArticleController())->articlesChart();
-
+        $usersChart = (new ArticleController)->usersChart();
         $articles = $articleModel->UnModeratedArticles();
-        return view('admin.admin-panel',compact('articlesChart','articles'));
+        return view('admin.admin-panel',compact('articlesChart','articles','usersChart'));
     }
 
     public function unModerArticlePage($id){
         $articlesChart = (new ArticleController())->articlesChart();
         $article = Articles::where('id',$id)->where('status','Находится на модерации')->first();
-        return view('admin.unmoderArticle-page',compact('article','articlesChart'));
+        $usersChart = (new ArticleController)->usersChart();
+        return view('admin.unmoderArticle-page',compact('article','articlesChart','usersChart'));
     }
 
     public function acceptArticle($id)

@@ -1,3 +1,5 @@
+
+@php(ini_set('display_errors', 1))
 @extends('app.app')
 @section('content')
     <h1>Редактирование профиля</h1>
@@ -12,19 +14,25 @@
             <hr>
             <form action="{{ route('updateUser') }}" method="post">
                 @csrf
-
                 <div class="form_group">
                     <label for="name">Имя</label>
+                    @if(Session::has('updateName'))
+                        <span style="color: forestgreen">{{Session::get('updateName')}}</span>
+                    @endif
                     <input class="input-settings" type="text" id="name" name="name" value="{{$user->name}}" onchange="">
                 </div>
                 <input type="submit" id="name_input">
             </form>
 
+
+
             <form action="{{ route('updateUser') }}" method="post">
                 @csrf
-
                 <div class="form_group">
                     <label for="description">Описание</label>
+                    @if(Session::has('updateDescription'))
+                        <span style="color: forestgreen">{{Session::get('updateDescription')}}</span>
+                    @endif
                     <input class="input-settings" type="text" value="{{$user->description}}" id="description" name="description">
 
                 </div>
@@ -37,14 +45,16 @@
             <hr>
             <form action="{{ route('updateUser') }}" method="post">
                 @csrf
-
                 <h4>Смена электронной почты</h4>
+                @if(Session::has('updateEmail'))
+                    <span style="color: forestgreen">{{Session::get('updateEmail')}}</span>
+                @endif
                 <div class="form_group">
                     <label for="email">Электронная почта</label>
                     <input class="input-settings" name="email" type="text" id="email" value="{{ $user->email }}">
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
+                    @error('email')
+                    <span style="color: #b91d19">{{$message}}</span>
+                    @enderror
                 </div>
                 <input type="submit" id="email_input">
             </form>
@@ -54,12 +64,21 @@
                 <h4>Смена пароля</h4>
                 <div class="form_group">
                     <label for="password">Пароль</label>
+                    @if(Session::has('updatePassword'))
+                        <span style="color: forestgreen">{{Session::get('updatePassword')}}</span>
+                    @endif
                     <input class="input-settings" name="password" id="password" type="password">
+                    @error('password')
+                        <span style="color: #b91d19">{{$message}}</span>
+                    @enderror
                 </div>
                 <div class="form_group">
                     <label for="password_confirm">Повтор пароля</label>
                     <input class="input-settings" name="password_confirm" id="password_confirm" type="password">
                 </div>
+                @error('password_confirm')
+                <span style="color: #b91d19">{{$message}}</span>
+                @enderror
                 <input type="submit" id="password_input">
             </form>
         </div>
