@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Articles;
 use App\Models\Comments;
 use App\Models\Favorites;
+use App\Models\Tags;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -245,6 +246,8 @@ class ArticleController extends Controller
     }
 
     public function newArticle(Request $request){
+
+        $tags = Tags::all();
         $a = '';
         $requestKeys = collect($request->all())->keys();
         $caption = $request['caption'];
@@ -264,20 +267,38 @@ class ArticleController extends Controller
                 $a = $a.'<img src="/storage/articles_content/'.$new_filename.'" alt="">';
             }
         }
-        $articles = Articles::create([
-            'user_id' => $_SESSION['user']['id'],
-            'name' => $request['caption'],
-            'content' => $a
-        ]);
 
-        if($articles){
-            return redirect()->route('home')->with('successArticle','Пост отправлен на модерацию');
+        $articleId = session('articleId');
+        if(is_null($articleId)){
+            $article = Articles::create([
+                'user_id' => $_SESSION['user']['id'],
+                'name' => $request['caption'],
+                'content' => $a
+            ]);
+            session(['articleId' => $article->id]);
+        }else{
+            $article = Articles::find($articleId);
         }
+//        session()->forget('articleId');
+        return view('newArticleSetTags',compact('article','tags'));
+
+//        if($articles){
+//            return redirect()->route('home')->with('successArticle','Пост отправлен на модерацию');
+//        }
         //$article = Articles::where('id', $id)->first();
         //if($article){
             //return view('article',compact('article'));
        // }
     }
+
+    public function setTags(Request $request){
+        dd($request['tags']);
+//        $articleId = session('articleId');
+//        $article = Articles::find($articleId);
+//        $article->tags()->attach($request['tagId']);
+//        return redirect()->back()->withInput();
+    }
+
 
     public function sendComment(Request $request,$id){
          Comments::create([

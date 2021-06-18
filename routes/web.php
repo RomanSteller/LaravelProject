@@ -5,6 +5,7 @@ use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\UserController;
+use App\Models\Tags;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -43,8 +44,12 @@ Route::group(['middleware' => 'isAuth'],function(){
     Route::get('/user/settings',[UserController::class,'userSettingView'])->name('userSettings');
     Route::post('/addFavorite',[ArticleController::class,'addFavorite'])->name('addFavorite');
     Route::post('/article/{id}/comment',[ArticleController::class,'sendComment'])->name('sendComment');
-    Route::get('/add/article',function (){return view('newArticle');})->name('newArticleForm');
+    Route::get('/add/article',function (){
+
+        return view('newArticle');
+    })->name('newArticleForm');
     Route::post('/add/article/insert',[ArticleController::class,'newArticle'])->name('newArticle');
+    Route::post('/add/article/insert/setTag',[ArticleController::class,'setTags'])->name('setTag');
     Route::group(['middleware' => 'isAdmin'],function(){
         Route::get('/admin',[AdminController::class,'index'])->name('admin');
         Route::get('/admin/article-page/{id}',[AdminController::class,'unModerArticlePage'])->name('articleUnModer');
