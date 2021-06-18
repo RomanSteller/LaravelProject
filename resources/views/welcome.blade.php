@@ -59,7 +59,7 @@
     </style>
 
     <script type="text/javascript">
-        $('.post svg').click(function(e){
+        $('.favorite_button').click(function(e){
             let click_id = $(this).attr('id'),
                 save_count = $('.save_count'+click_id).html();
             $.ajax({
