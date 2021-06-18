@@ -53,10 +53,6 @@ Route::group(['middleware' => 'isAuth'],function(){
     });
 });
 
-
-
-
-
 Route::get('/logout',[AuthController::class,'dropSession'])->name('logout');
 
 

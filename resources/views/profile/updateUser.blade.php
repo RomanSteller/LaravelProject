@@ -43,9 +43,11 @@
         <div class="form_settings secure">
             <h3 class="h3-sec">Безопасность</h3>
             <hr>
+
             <form action="{{ route('updateUser') }}" method="post">
                 @csrf
                 <h4>Смена электронной почты</h4>
+
                 @if(Session::has('updateEmail'))
                     <span style="color: forestgreen">{{Session::get('updateEmail')}}</span>
                 @endif
@@ -61,12 +63,24 @@
 
             <form action="{{ route('updateUser') }}" method="post">
                 @csrf
+                @if(Session::has('failOldPassword'))
+                    <span style="color: #b91d19">{{Session::get('failOldPassword')}}</span>
+                @endif
+                @if(Session::has('updatePassword'))
+                    <span style="color: forestgreen">{{Session::get('updatePassword')}}</span>
+                @endif
                 <h4>Смена пароля</h4>
                 <div class="form_group">
+                    <label for="password">Старый пароль</label>
+                    <input class="input-settings" name="old_password" id="password" type="password">
+                    @error('old_password')
+                    <span style="color: #b91d19">{{$message}}</span>
+                    @enderror
+                </div>
+
+
+                <div class="form_group">
                     <label for="password">Пароль</label>
-                    @if(Session::has('updatePassword'))
-                        <span style="color: forestgreen">{{Session::get('updatePassword')}}</span>
-                    @endif
                     <input class="input-settings" name="password" id="password" type="password">
                     @error('password')
                         <span style="color: #b91d19">{{$message}}</span>
@@ -112,7 +126,7 @@
         outline: none;
         border-radius: 0;
         border: 1px solid #b3b7bb;
-        padding: 5px 20px;
+        padding: 5px;
     }
 
     .secure{

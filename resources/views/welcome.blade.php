@@ -1,5 +1,8 @@
 @extends('app.articles')
 @section('articleContent')
+    @if(Session::has('successArticle'))
+        <span style="color: forestgreen;text-align: center; padding-top: 10px;font-size: 20px">{{Session::get('successArticle')}}</span>
+    @endif
     @foreach($articles as $article)
         @include('app.articleContent')
     @endforeach

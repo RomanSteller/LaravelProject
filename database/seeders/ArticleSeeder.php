@@ -17,7 +17,7 @@ class ArticleSeeder extends Seeder
     {
         DB::table('articles')->insert([
             'user_id' => 1,
-            'name' => 'Ебучий блятский пост всем похуй',
+            'name' => 'Тестовый пост',
             'status' => 'Одобрено модерацией',
             'content' => '<img src ="/storage/content-img.jpg">',
             'save_count' => random_int(50,1000),

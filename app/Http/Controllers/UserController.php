@@ -111,18 +111,20 @@ class UserController extends Controller
             return redirect()->route('userSettings')->with('updateEmail','Почта успешно обновлена');
         }
 
-        if (isset($request['password']) && isset($request['password_confirm'])) {
+        if (isset($request['password']) && isset($request['password_confirm']) && isset($request['old_password'])) {
 
-
+            $userPassword = User::where('id',$_SESSION['user']['id'])->first();
 
             $validator = Validator::make($request->all(), [
                 'password' => 'required|min:6',
                 'password_confirm' => 'required|same:password',
+                'old_password' => 'required'
             ],$messages = [
                 'password.required' => 'Поле пароля не должно быть пусто',
                 'password.min' => 'Пароль не должен содержать не менее 6 символов',
                 'password_confirm.same' => 'Пароли должны совпадать',
                 'password_confirm.required' => 'Поле повтора пароля не должно быть пусто',
+                'old_password.required' => 'Поле старого пароля не должно быть пусто'
             ]);
 
 
@@ -132,8 +134,16 @@ class UserController extends Controller
                     ->withInput();
             }
 
-            $user->password = Hash::make($request['password']);
-            $user->save();
+            if(!Hash::check($request['old_password'],$userPassword->password)){
+                return back()
+                    ->with('failOldPassword','Не правильно введен старый пароль');
+            }else{
+                $user->password = Hash::make($request['password']);
+                $user->save();
+            }
+
+
+
 
             return redirect()->route('userSettings')->with('updatePassword','Пароль успешно обновлен');
 

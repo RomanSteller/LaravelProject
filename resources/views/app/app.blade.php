@@ -48,7 +48,7 @@
         <div class="charts">
             <div class="tops">
                 <div class="top_text">
-                    <a href=""><h2>Топ публицистов</h2></a>
+                    <h2>Топ публицистов</h2>
                 </div>
                 <div class="top_publicists">
                     @foreach($usersChart as $userChart)
@@ -71,7 +71,7 @@
 
             <div class="top_articles">
                     <div class="top_text">
-                        <a href=""><h2>Топ статей</h2></a>
+                        <h2>Топ статей</h2>
                     </div>
                     @foreach($articlesChart as $chartArticle)
                         <div class="articles">

@@ -270,9 +270,9 @@ class ArticleController extends Controller
             'content' => $a
         ]);
 
-        return response()->json([
-            'message'=>$requestKeys.' '.$a
-        ]);
+        if($articles){
+            return redirect()->route('home')->with('successArticle','Пост отправлен на модерацию');
+        }
         //$article = Articles::where('id', $id)->first();
         //if($article){
             //return view('article',compact('article'));
