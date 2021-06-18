@@ -58,7 +58,7 @@
                                     <img src="{{Storage::url($userChart->photo)}}" alt="">
                                 </div>
                                 <div class="publicist_name">
-                                    <a href="{{route('getUser',['id'=>$userChart->id])}}"><h3>{{$userChart->name}}</h3></a>
+                                    <a href="{{route('getUserArticles',['id'=>$userChart->id,'statistic_name'=>'articles'])}}"><h3>{{$userChart->name}}</h3></a>
                                 </div>
                             </div>
                             <div class="publicist_views">

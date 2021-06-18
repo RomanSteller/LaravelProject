@@ -29,6 +29,9 @@ class UserController extends Controller
 
         if ($statistic_name === 'articles') {
             $articles = Articles::with('tags')->where('user_id', $id)->get();
+            foreach ($articles as $article){
+                (new ArticleController)->dateOutput($article);
+            }
             return view('profile.userInfo', compact('articles', 'user', 'articlesChart', 'usersChart'));
         }elseif ($statistic_name === 'comments') {
             $comments = Comments::where('user_id', $id)->get();

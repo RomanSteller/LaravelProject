@@ -199,7 +199,7 @@ class ArticleController extends Controller
     }
 
     public function bestArticles(){
-        $articles = Articles::orderBy('save_count','desc')->get();// Надо добавить сортировку по времени(за сегодня, неделю, месяц)
+        $articles = Articles::orderBy('save_count','desc')->get();
         foreach ($articles as $article){
             ArticleController::dateOutput($article);
         }
