@@ -3,13 +3,6 @@
     Главная
 @endsection
 @section('content')
-    <nav>
-        <ul>
-            <li><a href="#">Статьи</a></li>
-            <li><a href="#">Новости</a></li>
-            <li><a href="#">Авторы</a></li>
-        </ul>
-    </nav>
     <div class="switch_sort">
         <div class="switch_best_or_all">
             <ul>

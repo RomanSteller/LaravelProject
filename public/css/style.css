@@ -103,7 +103,6 @@ li{
 .switch_sort{
     display: flex;
     justify-content: space-between;
-    margin-top: 40px;
 }
 
 .switch_best_or_all,
