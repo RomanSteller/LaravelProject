@@ -15,7 +15,6 @@
             @csrf
             <input type="text" placeholder="Заголовок" name="caption" id="caption">
             <div id="new_input">
-
             </div>
             <button>Отправить</button>
         </form>
@@ -32,26 +31,29 @@
                 </svg>
             </button>
         </div>
-
-
     </div>
-
     <script>
-        let i = 0;
+        let i = 0,
+            max = 5;
 
         $('#add_text').click(function(){
-            //let i = count();
-            if (i > 5) return;
+            if (i > max) return;
             else i++;
-            $('#new_input').append($(`<textarea class='text-content' type='text' id='${i}text' name='${i}text'/>`));
+            $('#new_input').append($(`<button type="button" class="delete" id='${i}'>xxxxxxxxxxxxxxxxxx</button><div><textarea class='text-content' type='text' id='${i}text' name='${i}text'/></div>`));
         });
-
         $('#add_img').click(function(){
-            //let i = count();
-            if (i > 5) return;
+            if (i > max) return;
             else i++;
-            $('#new_input').append($(`<input class='image-content' type='file' id='${i}img' name='${i}img'/>`));
+            $('#new_input').append($(`<button type="button" class="delete" id='${i}'>xxxxxxxxxxxxxxxxx</button><div><input class='image-content' type='file' id='${i}img' name='${i}img'/></div>`));
         });
+        $(function (){
+            $('.delete').click(function(){
+                max++;
+                alert('dsd');
+                let click_id = $(this).attr('id');
+                $('div').remove();
+            });
+        })
     </script>
 
 </body>

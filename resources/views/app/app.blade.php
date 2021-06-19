@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="{{asset('css/style.css')}}">
     <link rel="shortcut icon" href="{{Storage::url('logo/favicon.png')}}">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.6.0.js"></script>
     <title>@yield('title')</title>
 </head>
 <body>
@@ -20,9 +20,9 @@
             <a href="{{route('home')}}"><img src="{{Storage::url('logo/logo.png')}}" alt=""></a>
         </div>
         @if(!isset($_SESSION['user']))
-        <div class="header_user_nickname">
-            <a href="{{route('auth')}}" style="color: white">Авторизоваться</a>
-        </div>
+            <div class="header_user_nickname">
+                <a href="{{route('auth')}}" style="color: white">Авторизоваться</a>
+            </div>
         @else
             <div class="header_user_nickname">
                 <ul>
