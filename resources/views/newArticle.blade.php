@@ -33,27 +33,32 @@
         </div>
     </div>
     <script>
-        let i = 0,
-            max = 5;
 
-        $('#add_text').click(function(){
-            if (i > max) return;
-            else i++;
-            $('#new_input').append($(`<button type="button" class="delete" id='${i}'>xxxxxxxxxxxxxxxxxx</button><div><textarea class='text-content' type='text' id='${i}text' name='${i}text'/></div>`));
-        });
-        $('#add_img').click(function(){
-            if (i > max) return;
-            else i++;
-            $('#new_input').append($(`<button type="button" class="delete" id='${i}'>xxxxxxxxxxxxxxxxx</button><div><input class='image-content' type='file' id='${i}img' name='${i}img'/></div>`));
-        });
-        $(function (){
-            $('.delete').click(function(){
-                max++;
+            let i = 0,
+                max = 5;
+
+            $('#add_text').click(function(){
+                if (i > max) return;
+                else i++;
+                $('#new_input').append($(`<button type="button" class="delete" id='${i}'>xxxxxxxxxxxxxxxxxx</button><div><textarea class='text-content' type='text' id='${i}text' name='${i}text'/></div>`));
+            });
+            $('#add_img').click(function(){
+                if (i > max) return;
+                else i++;
+                $('#new_input').append($(`<button type="button" class="delete" id='${i}'>xxxxxxxxxxxxxxxxx</button><div><input class='image-content' type='file' id='${i}img' name='${i}img'/></div>`));
+            });
+            $(document).on('click','.delete',()=>{
                 alert('dsd');
+                max++;
                 let click_id = $(this).attr('id');
                 $('div').remove();
-            });
-        })
+            })
+            // $(function (){
+            //     $('.delete').on("click",function(){
+            //
+            //     });
+            // })
+
     </script>
 
 </body>
