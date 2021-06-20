@@ -40,25 +40,18 @@
             $('#add_text').click(function(){
                 if (i > max) return;
                 else i++;
-                $('#new_input').append($(`<button type="button" class="delete" id='${i}'>xxxxxxxxxxxxxxxxxx</button><div><textarea class='text-content' type='text' id='${i}text' name='${i}text'/></div>`));
+                $('#new_input').append($(`<div class="input_element" id="${i}"><button type="button" class="delete" id='${i}'>x</button><div><textarea class='text-content' type='text' id='${i}text' name='${i}text'/></div></div>`));
             });
             $('#add_img').click(function(){
                 if (i > max) return;
                 else i++;
-                $('#new_input').append($(`<button type="button" class="delete" id='${i}'>xxxxxxxxxxxxxxxxx</button><div><input class='image-content' type='file' id='${i}img' name='${i}img'/></div>`));
+                $('#new_input').append($(`<div class="input_element" id="${i}"><button type="button" class="delete" id='${i}'>x</button><div><input class='image-content' type='file' id='${i}img' name='${i}img'/></div></div>`));
             });
-            $(document).on('click','.delete',()=>{
-                alert('dsd');
+            $('#new_input').on('click','.delete',function(e){
                 max++;
                 let click_id = $(this).attr('id');
-                $('div').remove();
+                $('#'+click_id).remove();
             })
-            // $(function (){
-            //     $('.delete').on("click",function(){
-            //
-            //     });
-            // })
-
     </script>
 
 </body>
