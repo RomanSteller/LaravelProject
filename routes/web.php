@@ -47,6 +47,7 @@ Route::group(['middleware' => 'isAuth'],function(){
     Route::get('/add/article',function (){
         return view('newArticle');
     })->name('newArticleForm');
+    Route::post('/searchTags',[ArticleController::class,'searchTags'])->name('searchTags');
     Route::post('/add/article/insert',[ArticleController::class,'newArticle'])->name('newArticle');
     Route::post('/add/article/insert/setTag',[ArticleController::class,'setTags'])->name('setTag');
     Route::group(['middleware' => 'isAdmin'],function(){

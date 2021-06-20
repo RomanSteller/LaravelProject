@@ -102,6 +102,7 @@ class ArticleController extends Controller
                 return $created_time_month;
                 break;
         }
+
     }
 
 
@@ -148,11 +149,16 @@ class ArticleController extends Controller
                 }
             }
         }
+        //$usersChart = $usersChart->sortByDesc('save_count');
+        //dd($usersChart);
         $usersChart = $usersChart->slice(0,5)->sortByDesc('save_count');
+
+        //dd($usersChart,$articlesList);
         return $usersChart;
     }
 
-    public function allArticles(){
+    public function allArticles()
+    {
         $articles = Articles::orderBy('created_at','desc')->where('status','Одобрено модерацией')->get();
         foreach ($articles as $article){
             ArticleController::dateOutput($article);
@@ -162,6 +168,8 @@ class ArticleController extends Controller
         if($articles)
         return view('welcome',compact('articles', 'articlesChart','usersChart'));
     }
+
+
 
     public function orderByTime($interval){
         date_default_timezone_set('Europe/Moscow');
@@ -186,6 +194,9 @@ class ArticleController extends Controller
             $articles = $articles->whereBetween('created_time',[$yearStart,$curDate]);
             return view('welcome',compact('articles', 'articlesChart','usersChart'));
         }
+
+//        $article['created_at']->
+
     }
 
     public function bestArticles(){
@@ -218,8 +229,13 @@ class ArticleController extends Controller
         foreach ($comments as $comment){
             $this->dateOutput($comment);
         }
+
         $articlesChart = ArticleController::articlesChart();
         $usersChart = ArticleController::usersChart();
+//        $comments = Comments::where('article_id',$id)->get();
+//        ArticleController::dateOutput($comments);
+
+
         if($article){
             return view('article',compact('article', 'articlesChart','comments','usersChart'));
         }else if(empty($article)){
@@ -245,6 +261,9 @@ class ArticleController extends Controller
                 $filename = $file->getClientOriginalName();
                 $new_filename = time().'_'.$filename;
                 Storage::putFileAs($upload_folder, $file, $new_filename);
+                //$a = $a.'<img src="'.$request[$i.'img'].'" alt="">';
+                //$request->file($i.'img')->move(storage_path('images'), time().'_'.$request->file($i.'img')->getClientOriginalName());
+                //$file_path = $request->file($i.'img')->store('/storage/articles_content');
                 $a = $a.'<img src="/storage/articles_content/'.$new_filename.'" alt="">';
             }
         }
@@ -260,8 +279,26 @@ class ArticleController extends Controller
         }else{
             $article = Articles::find($articleId);
         }
+
         return view('newArticleSetTags',compact('article','tags'));
     }
+
+    public function searchTags(Request $request){
+        return response()->json(Tags::where('tag_name','like','%'.$request->input('keyword').'%')->get());
+    }
+
+
+    public function setTags(Request $request){
+        $tags = $request['id_input'];
+        $articleId = session('articleId');
+        $article = Articles::find($articleId);
+        foreach ($tags as $tag){
+            $article->tags()->attach($tag);
+        }
+        session()->forget('articleId');
+        return redirect()->route('home')->with('successPost','Пост отправлен на модерацию');
+    }
+
 
     public function sendComment(Request $request,$id){
          Comments::create([
