@@ -39,7 +39,11 @@
       <input type="submit" @click.prevent="createUser">
       <a href="" @click.prevent="switchForm">Я зарегестрирован</a>
     </form>
+
     <form action="" v-if="toogleForm">
+      <div class="alert alert-danger text-center" role="alert" v-if="authFail">
+        {{failAuthMessage}}
+      </div>
       <p>Авторизация</p>
       <div class="form-group">
         <label for="login">Логин</label>
@@ -71,6 +75,8 @@ export default {
       failName:false,
       failEmail:false,
       successRegister:false,
+      authFail:false,
+      failAuthMessage:"",
       regForm:{
         login:"",
         name:"",
@@ -121,6 +127,7 @@ export default {
           }else{
               this.failLogin=false
           }
+
           if(err.response.data.errors.password){
             this.failPassword = true;
             this.failPasswordMessage = err.response.data.errors.password[0]
@@ -154,17 +161,14 @@ export default {
       })
     },
     authUser(){
-      console.log('123');
       axios.post('api/auth-user',this.authForm, {
         "Content-type":"application/json",
         'X-XSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
       }).then(res=>{
-          if(res.data){
-            console.log(res.data.id)
-            window.location.href = "/"
-
-          }
+          window.location.href = "/"
       }).catch(err=>{
+        console.log(err.response.data.message)
+
         if (err?.response?.data?.errors) {
           if(err.response.data.errors.login){
             this.failLogin = true;
@@ -176,6 +180,10 @@ export default {
             this.failPassword = true;
             this.failPasswordMessage = err.response.data.errors.password[0]
           }
+
+        }else if(err?.response?.data?.message){
+          this.authFail = true;
+          this.failAuthMessage = "Пользователь не найден"
         }
 
       });
