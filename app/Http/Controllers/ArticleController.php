@@ -291,6 +291,11 @@ class ArticleController extends Controller
        // }
     }
 
+    public function searchTags(Request $request){
+        return response()->json(Tags::where('tag_name','like','%'.$request->input('keyword').'%')->get());
+    }
+
+
     public function setTags(Request $request){
         dd($request['tags']);
 //        $articleId = session('articleId');
