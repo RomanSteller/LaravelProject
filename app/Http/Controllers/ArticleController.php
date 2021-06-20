@@ -273,7 +273,8 @@ class ArticleController extends Controller
             $article = Articles::create([
                 'user_id' => $_SESSION['user']['id'],
                 'name' => $request['caption'],
-                'content' => $a
+                'content' => $a,
+                'status' => 'Создается'
             ]);
             session(['articleId' => $article->id]);
         }else{
@@ -292,6 +293,8 @@ class ArticleController extends Controller
         $tags = $request['id_input'];
         $articleId = session('articleId');
         $article = Articles::find($articleId);
+        $article['status'] = 'Находится на модерации';
+        $article->save();
         foreach ($tags as $tag){
             $article->tags()->attach($tag);
         }

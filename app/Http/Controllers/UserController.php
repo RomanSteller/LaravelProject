@@ -28,7 +28,7 @@ class UserController extends Controller
         $usersChart = (new ArticleController)->usersChart();
 
         if ($statistic_name === 'articles') {
-            $articles = Articles::with('tags')->orderBy('created_at','desc')->where('user_id', $id)->get();
+            $articles = Articles::with('tags')->orderBy('created_at','desc')->where('user_id', $id)->where('status','Одобренно модерацией')->get();
             foreach ($articles as $article){
                 (new ArticleController)->dateOutput($article);
             }
