@@ -279,16 +279,8 @@ class ArticleController extends Controller
         }else{
             $article = Articles::find($articleId);
         }
-//        session()->forget('articleId');
-        return view('newArticleSetTags',compact('article','tags'));
 
-//        if($articles){
-//            return redirect()->route('home')->with('successArticle','Пост отправлен на модерацию');
-//        }
-        //$article = Articles::where('id', $id)->first();
-        //if($article){
-            //return view('article',compact('article'));
-       // }
+        return view('newArticleSetTags',compact('article','tags'));
     }
 
     public function searchTags(Request $request){
@@ -297,11 +289,14 @@ class ArticleController extends Controller
 
 
     public function setTags(Request $request){
-        dd($request['tags']);
-//        $articleId = session('articleId');
-//        $article = Articles::find($articleId);
-//        $article->tags()->attach($request['tagId']);
-//        return redirect()->back()->withInput();
+        $tags = $request['id_input'];
+        $articleId = session('articleId');
+        $article = Articles::find($articleId);
+        foreach ($tags as $tag){
+            $article->tags()->attach($tag);
+        }
+        session()->forget('articleId');
+        return redirect()->route('home')->with('successPost','Пост отправлен на модерацию');
     }
 
 
