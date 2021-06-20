@@ -1,6 +1,6 @@
 @extends('app.articles')
 @section('articleContent')
-    <script type="text/javascript" src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.6.0.js"></script>
+
     @if(Session::has('successArticle'))
         <span style="color: forestgreen;text-align: center; padding-top: 10px;font-size: 20px">{{Session::get('successArticle')}}</span>
     @endif
@@ -41,8 +41,8 @@
         position: fixed;
     }
 </style>
-
-<script type="text/javascript">
+<script type="text/javascript" src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.6.0.js"></script>
+<script>
     $('.favorite_button').click(function(e){
         let click_id = $(this).attr('id'),
             save_count = $('.save_count'+click_id).html();
